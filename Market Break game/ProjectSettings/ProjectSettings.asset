@@ -4,17 +4,17 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  productGUID: 5f48569f83c81914daf5fe8b38a7c49b
+  productGUID: 95cd1fc330c85ab4ea8144b42d196645
   AndroidProfiler: 0
-  defaultScreenOrientation: 3
+  defaultScreenOrientation: 4
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: Market Break project
-  productName: Market Break game
+  companyName: DefaultCompany
+  productName: New Unity Project 1
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
-  m_SplashScreenBackgroundColor: {r: 0.14705884, g: 0.5735294, b: 1, a: 1}
+  m_SplashScreenBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21176471, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1
   m_SplashScreenOverlayOpacity: 1
@@ -118,7 +118,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleIdentifier: com.MarketBreakProject.MerketBreakgame
+  bundleIdentifier: com.Company.ProductName
   bundleVersion: 1.0
   preloadedAssets: []
   metroInputSource: 0
@@ -126,7 +126,7 @@ PlayerSettings:
   xboxOneDisableKinectGpuReservation: 0
   protectGraphicsMemory: 0
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 14
+  AndroidMinSdkVersion: 9
   AndroidPreferredInstallLocation: 1
   aotOptions: 
   apiCompatibilityLevel: 2
@@ -202,7 +202,7 @@ PlayerSettings:
   m_AndroidBanners:
   - width: 320
     height: 180
-    banner: {fileID: 2800000, guid: e12264e58ec4c864985224a0d023b1d5, type: 3}
+    banner: {fileID: 0}
   androidGamepadSupportLevel: 0
   resolutionDialogBanner: {fileID: 0}
   m_BuildTargetIcons: []
@@ -378,14 +378,14 @@ PlayerSettings:
   additionalIl2CppArgs: 
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Market Break game
+  metroPackageName: New Unity Project 1
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: Market Break game
+  metroApplicationDescription: New Unity Project 1
   wsaImages: {}
   metroTileShortName: 
   metroCommandLineArgsFile: 
@@ -452,9 +452,8 @@ PlayerSettings:
   XboxOneAllowedProductIds: []
   XboxOnePersistentLocalStorageSize: 0
   vrEditorSettings: {}
-  cloudServicesEnabled:
-    UNet: 1
-  cloudProjectId: ab03fbf9-d9cf-4eaa-a507-1f8060c06914
-  projectName: Market Break game
-  organizationId: cibail
+  cloudServicesEnabled: {}
+  cloudProjectId: 
+  projectName: 
+  organizationId: 
   cloudEnabled: 0
