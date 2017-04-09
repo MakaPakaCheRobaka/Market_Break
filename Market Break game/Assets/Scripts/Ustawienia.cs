@@ -6,21 +6,21 @@ public class Ustawienia : MonoBehaviour {
 
 	public bool dzwiek;
 	public bool muzyka;
+	AudioSource source;
 
 	void Awake ()
 	{
+		source = GetComponent<AudioSource> ();
 		DontDestroyOnLoad (gameObject);
 		dzwiek = true;
 		muzyka = true;
 	}
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	public void odegrajDzwiek(AudioClip sound)
+	{
+		if (dzwiek == true) 
+		{
+			source.PlayOneShot (sound);
+		}
 	}
 }

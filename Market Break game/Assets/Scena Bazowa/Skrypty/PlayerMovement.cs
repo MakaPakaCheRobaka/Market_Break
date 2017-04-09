@@ -17,10 +17,13 @@ public class PlayerMovement : MonoBehaviour {
     public int potk; // zmienna która przechowuje ile razy gracz wpadł na przeszkodę
     public bool wolny = false; // zmianna która przechowuje info czy gracz się uwolnił przed tłumem
     public bool zlapany = false; // zmianna która przechowuje info czy tłum złąpał gracza
+	public AudioClip uderzenieDzwiek; // dźwięk uderzenie w przeszkodę
+	Ustawienia ust; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
 
 
     // Use this for initialization
     void Start () {
+		ust = GameObject.Find ("Ustawienia").GetComponent<Ustawienia> ();
         myRigidbody = GetComponent<Rigidbody2D>();
 		tlum = GameObject.FindGameObjectWithTag ("Tlum").GetComponent<Rigidbody2D> ();
         skok_poz_str = myRigidbody.position.y;
@@ -64,11 +67,13 @@ public class PlayerMovement : MonoBehaviour {
         {
             if (wys_pos < -1 )
             {
-                myRigidbody.velocity = Vector3.up * jumpSpeed;
+                //myRigidbody.velocity = Vector3.up * jumpSpeed;
+				myRigidbody.AddForce(new Vector2(0, 100) * jumpSpeed);
             }
         }
-        else
-        myRigidbody.velocity = Vector2.right * moveSpeed; //x=-1, y=0;
+        //else
+		//myRigidbody.velocity = Vector2.right * moveSpeed; //x=-1, y=0;
+		myRigidbody.AddForce(new Vector2(10, 0) * moveSpeed);
     }
 
 
@@ -76,6 +81,7 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		if (target.gameObject.tag == "Przeszkoda") 
 		{
+			ust.odegrajDzwiek (uderzenieDzwiek);
 			Debug.Log ("Dotknięcie przeszkody");
 			target.gameObject.AddComponent<Rigidbody2D> ();
 			target.collider.isTrigger = true;

@@ -1431,7 +1431,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 10
   m_AngularDrag: 0.05
   m_GravityScale: 10
   m_Material: {fileID: 0}
@@ -1602,13 +1602,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Q: {fileID: 1583895331}
   pasek: {fileID: 565879710}
-  jumpSpeed: 200
-  moveSpeed: 10
+  jumpSpeed: 30
+  moveSpeed: 15
   wys_pos: 0
   skok_poz_str: 0
   potk: 0
   wolny: 0
   zlapany: 0
+  uderzenieDzwiek: {fileID: 8300000, guid: a240d923ba0ee4a47a21468d5a0aa5a6, type: 3}
 --- !u!1 &1893706043
 GameObject:
   m_ObjectHideFlags: 0
