@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class Ustawienia : MonoBehaviour {
 
-	public bool dzwiek;
-	public bool muzyka;
 	AudioSource source;
 
-	void Awake ()
+	void Start ()
 	{
+		//Ustawienie dźwięku i muzyki na włączone jeśli nie zostały wcześniej ustawione
+		if (PlayerPrefs.HasKey ("Dźwięk")) 
+		{
+			PlayerPrefs.SetInt ("Dźwięk", 1);
+		}
+		if (PlayerPrefs.HasKey ("Muzyka")) 
+		{
+			PlayerPrefs.SetInt ("Muzyka", 1);
+		}
 		source = GetComponent<AudioSource> ();
-		DontDestroyOnLoad (gameObject);
-		dzwiek = true;
-		muzyka = true;
 	}
+
+	//Funkcja odpowiadająca za odtwarzanie dźwięków
 
 	public void odegrajDzwiek(AudioClip sound)
 	{
-		if (dzwiek == true) 
+		if (PlayerPrefs.GetInt("Dźwięk") == 1) //Sprawdzanie czy dźwięk jest włączony
 		{
 			source.PlayOneShot (sound);
 		}

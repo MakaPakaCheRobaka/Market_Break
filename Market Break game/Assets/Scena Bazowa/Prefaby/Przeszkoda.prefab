@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4784524244380722}
+  - component: {fileID: 114193907221441376}
   m_Layer: 0
   m_Name: Przeszkoda
   m_TagString: Untagged
@@ -116,6 +117,18 @@ PolygonCollider2D:
       - {x: 3.3799999, y: -3.4299998}
       - {x: 4.16, y: -3.4299998}
       - {x: 4.29, y: -3.4099998}
+--- !u!114 &114193907221441376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1761947723255264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21269610edbb9394c9320163b4e975c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyTime: 5
 --- !u!212 &212313665890940854
 SpriteRenderer:
   m_ObjectHideFlags: 1

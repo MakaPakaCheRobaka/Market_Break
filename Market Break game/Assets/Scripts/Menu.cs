@@ -6,62 +6,63 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour {
 
-    public enum Choice {Start, Dźwięk, Muzyka, Wyjście };
-    public Choice choice;
+	public enum Choice {Start, Dźwięk, Muzyka, Wyjście };
+	public Choice choice;
 	public string scena;
-
-	Ustawienia ust;
 
 	Text text;
 
 	// Use this for initialization
 	void Start () {
-		ust = GameObject.Find ("Ustawienia").GetComponent<Ustawienia> ();
 		text = gameObject.GetComponentInChildren<Text>();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
-    void OnMouseDown()
-    {
+	void OnMouseDown()
+	{
+		//Ładowanie sceny bazowej w przypadku naciśnięcia przycisku startu
 		if (choice == Choice.Start) 
 		{
 			Debug.Log ("1");
 			SceneManager.LoadScene (scena);
 		} 
+		//Włączanie i wyłączanie dźwięku
 		else if (choice == Choice.Dźwięk) 
 		{
-			if (ust.dzwiek == true) 
+			if (PlayerPrefs.GetInt("Dźwięk") == 1) 
 			{
-				ust.dzwiek = false;
+				PlayerPrefs.SetInt("Dźwięk", 0);
 				text.text = "DŹWIĘK: OFF";
 			}
 			else 
 			{
-				ust.dzwiek = true;
+				PlayerPrefs.SetInt("Dźwięk", 1);
 				text.text = "DŹWIĘK: ON";
 			}
 		} 
+		//Włączanie i wyłączanie muzyki
 		else if (choice == Choice.Muzyka) 
 		{
-			if (ust.muzyka == true) 
+			if (PlayerPrefs.GetInt("Muzyka") == 1) 
 			{
-				ust.muzyka = false;
+				PlayerPrefs.SetInt("Muzyka", 0);
 				text.text = "MUZYKA: OFF";
 			}
 			else 
 			{
-				ust.muzyka = true;
+				PlayerPrefs.SetInt("Muzyka", 1);
 				text.text = "MUZYKA: ON";
 			}
 		}
-        else
-        {
-            Debug.Log("3");
-            Application.Quit();
-        }
-    }
+		//Przycisk wyjścia z gry
+		else
+		{
+			Debug.Log("3");
+			Application.Quit();
+		}
+	}
 }
