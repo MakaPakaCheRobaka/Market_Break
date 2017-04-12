@@ -29,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip uderzenieDzwiek; // dźwięk uderzenie w przeszkodę
     Ustawienia ust; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
 
+	bool jump = false;
 
     // Use this for initialization
     void Start()
@@ -91,17 +92,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-        {
-            if (wys_pos < -1)
-            {
-                //myRigidbody.velocity = Vector3.up * jumpSpeed;
-                myRigidbody.AddForce(new Vector2(0, 100) * jumpSpeed);
-            }
-        }
-        //else
-        //myRigidbody.velocity = Vector2.right * moveSpeed; //x=-1, y=0;
-        myRigidbody.AddForce(new Vector2(10, 0) * moveSpeed);
+		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0)) {
+			if (wys_pos < -1) {
+				myRigidbody.velocity = new Vector2 (myRigidbody.velocity.x, jumpSpeed);
+			}
+		} 
+		myRigidbody.velocity = new Vector2 (moveSpeed, myRigidbody.velocity.y);
     }
 
 
