@@ -6,63 +6,69 @@ using UnityEngine.UI;
 
 public class Menu : MonoBehaviour {
 
-	public enum Choice {Start, Dźwięk, Muzyka, Wyjście };
-	public Choice choice;
-	public string scena;
-
 	Text text;
 
 	// Use this for initialization
 	void Start () {
-		text = gameObject.GetComponentInChildren<Text>();
+		text = GameObject.Find ("PrzyciskDźwięk").GetComponentInChildren<Text> ();
+		if (PlayerPrefs.GetInt("Dźwięk") == 1) 
+		{
+			text.text = "DŹWIĘK: ON";
+		}
+		else 
+		{
+			text.text = "DŹWIĘK: OFF";
+		}
+		text = GameObject.Find ("PrzyciskMuzyka").GetComponentInChildren<Text> ();
+
+		if (PlayerPrefs.GetInt("Muzyka") == 1) 
+		{
+			text.text = "MUZYKA: ON";
+		}
+		else 
+		{
+			text.text = "MUZYKA: OFF";
+		}
 	}
 
-	// Update is called once per frame
-	void Update () {
-
-	}
-
-	void OnMouseDown()
+	public void pressStart()
 	{
-		//Ładowanie sceny bazowej w przypadku naciśnięcia przycisku startu
-		if (choice == Choice.Start) 
+		Debug.Log ("Click");
+		SceneManager.LoadScene ("scena");
+	}
+
+	public void pressDzwiek()
+	{
+		text = GameObject.Find ("PrzyciskDźwięk").GetComponentInChildren<Text> ();
+		if (PlayerPrefs.GetInt("Dźwięk") == 1) 
 		{
-			Debug.Log ("1");
-			SceneManager.LoadScene (scena);
-		} 
-		//Włączanie i wyłączanie dźwięku
-		else if (choice == Choice.Dźwięk) 
-		{
-			if (PlayerPrefs.GetInt("Dźwięk") == 1) 
-			{
-				PlayerPrefs.SetInt("Dźwięk", 0);
-				text.text = "DŹWIĘK: OFF";
-			}
-			else 
-			{
-				PlayerPrefs.SetInt("Dźwięk", 1);
-				text.text = "DŹWIĘK: ON";
-			}
-		} 
-		//Włączanie i wyłączanie muzyki
-		else if (choice == Choice.Muzyka) 
-		{
-			if (PlayerPrefs.GetInt("Muzyka") == 1) 
-			{
-				PlayerPrefs.SetInt("Muzyka", 0);
-				text.text = "MUZYKA: OFF";
-			}
-			else 
-			{
-				PlayerPrefs.SetInt("Muzyka", 1);
-				text.text = "MUZYKA: ON";
-			}
+			PlayerPrefs.SetInt("Dźwięk", 0);
+			text.text = "DŹWIĘK: OFF";
 		}
-		//Przycisk wyjścia z gry
-		else
+		else 
 		{
-			Debug.Log("3");
-			Application.Quit();
+			PlayerPrefs.SetInt("Dźwięk", 1);
+			text.text = "DŹWIĘK: ON";
 		}
+	}
+
+	public void pressMuzyka()
+	{
+		text = GameObject.Find ("PrzyciskMuzyka").GetComponentInChildren<Text> ();
+		if (PlayerPrefs.GetInt("Muzyka") == 1) 
+		{
+			PlayerPrefs.SetInt("Muzyka", 0);
+			text.text = "MUZYKA: OFF";
+		}
+		else 
+		{
+			PlayerPrefs.SetInt("Muzyka", 1);
+			text.text = "MUZYKA: ON";
+		}
+	}
+
+	public void pressWyjscie()
+	{
+		Application.Quit();
 	}
 }

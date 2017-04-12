@@ -9,11 +9,11 @@ public class Ustawienia : MonoBehaviour {
 	void Start ()
 	{
 		//Ustawienie dźwięku i muzyki na włączone jeśli nie zostały wcześniej ustawione
-		if (PlayerPrefs.HasKey ("Dźwięk")) 
+		if (!PlayerPrefs.HasKey ("Dźwięk")) 
 		{
 			PlayerPrefs.SetInt ("Dźwięk", 1);
 		}
-		if (PlayerPrefs.HasKey ("Muzyka")) 
+		if (!PlayerPrefs.HasKey ("Muzyka")) 
 		{
 			PlayerPrefs.SetInt ("Muzyka", 1);
 		}
