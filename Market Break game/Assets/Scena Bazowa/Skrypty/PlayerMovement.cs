@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     public float wynik;           // zmienna przechowuje info o wyniku gracza
     public AudioClip uderzenieDzwiek; // dźwięk uderzenie w przeszkodę
     Ustawienia ust; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
-
+    public float QTE_speed; // szybkość napełniania się paska QTE na korzyść tłumu
 	bool jump = false;
 
     // Use this for initialization
@@ -43,7 +43,8 @@ public class PlayerMovement : MonoBehaviour
         Q.SetActive(false);             //pasek QTE jest niewidoczny
         Game_Over.SetActive(false);     //pasek GAme Over jest niewidoczny
         wynik = 0f;                     //zerowanie wyniku
-
+        QTE_speed = 0.2f;
+   
     }
 
     // Update is called once per frame
@@ -78,6 +79,7 @@ public class PlayerMovement : MonoBehaviour
                 potk = 0;
                 wolny = false;
                 pasek.fillAmount = 0.5f;
+                QTE_speed = QTE_speed + 0.01f;
             }
         }
         else
@@ -120,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
 
         Q.SetActive(true); //włącza się QTE
 
-        pasek.fillAmount = pasek.fillAmount + 0.2f * Time.deltaTime;  // pasek wypełania się na korzyść tłumu
+        pasek.fillAmount = pasek.fillAmount + QTE_speed * Time.deltaTime;  // pasek wypełania się na korzyść tłumu
 
         if (Input.GetMouseButtonDown(0)) //gracz musi szybko klikać aby się uwolnić od tłumu
         {
