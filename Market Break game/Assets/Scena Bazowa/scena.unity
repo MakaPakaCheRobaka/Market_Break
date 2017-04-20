@@ -1827,7 +1827,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 1761947723255264, guid: 1e93975de8adfcc418bf9b773f89b50b, type: 2}
+  enemy2: {fileID: 1761947723255264, guid: 3fe370e2b9099aa4bb62b611484d25c7, type: 2}
+  enemy3: {fileID: 1761947723255264, guid: c2965ec7634b3c246ab9c3117a4cd00c, type: 2}
   spawnTime: 10
+  spawnTime2: 4
+  spawnTime3: 6
 --- !u!212 &1782409070
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2366,6 +2370,7 @@ MonoBehaviour:
   zlapany: 0
   wynik: 0
   uderzenieDzwiek: {fileID: 8300000, guid: a240d923ba0ee4a47a21468d5a0aa5a6, type: 3}
+  muzyka: {fileID: 8300000, guid: 2aaaa19663658d144bb4f68332eec480, type: 3}
   QTE_speed: 0
 --- !u!1 &1893706043
 GameObject:
@@ -2880,7 +2885,7 @@ Camera:
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
-  m_HDR: 1
+  m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022

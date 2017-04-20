@@ -2,31 +2,36 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ustawienia : MonoBehaviour {
+public class Ustawienia : MonoBehaviour
+{
 
-	AudioSource source;
+    public bool dzwiek;
+    public bool muzyka;
+    AudioSource source;
 
-	void Start ()
-	{
-		//Ustawienie dźwięku i muzyki na włączone jeśli nie zostały wcześniej ustawione
-		if (!PlayerPrefs.HasKey ("Dźwięk")) 
-		{
-			PlayerPrefs.SetInt ("Dźwięk", 1);
-		}
-		if (!PlayerPrefs.HasKey ("Muzyka")) 
-		{
-			PlayerPrefs.SetInt ("Muzyka", 1);
-		}
-		source = GetComponent<AudioSource> ();
-	}
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+        DontDestroyOnLoad(gameObject);
+        dzwiek = true;
+        muzyka = true;
+    }
 
-	//Funkcja odpowiadająca za odtwarzanie dźwięków
+    public void odegrajDzwiek(AudioClip sound)
+    {
+        if (dzwiek == true)
+        {
+            source.PlayOneShot(sound);
+        }
 
-	public void odegrajDzwiek(AudioClip sound)
-	{
-		if (PlayerPrefs.GetInt("Dźwięk") == 1) //Sprawdzanie czy dźwięk jest włączony
-		{
-			source.PlayOneShot (sound);
-		}
-	}
+    }
+
+    public void wlaczMuzyke(AudioClip sound)
+    {
+        if (muzyka == true)
+        {
+            source.PlayOneShot(sound);
+        }
+
+    }
 }

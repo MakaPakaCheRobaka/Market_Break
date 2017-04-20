@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     public bool zlapany = false; // zmianna która przechowuje info czy tłum złąpał gracza
     public float wynik;           // zmienna przechowuje info o wyniku gracza
     public AudioClip uderzenieDzwiek; // dźwięk uderzenie w przeszkodę
+    public AudioClip muzyka; // dźwięk muzyki
     Ustawienia ust; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
     public float QTE_speed; // szybkość napełniania się paska QTE na korzyść tłumu
 	bool jump = false;
@@ -44,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
         Game_Over.SetActive(false);     //pasek GAme Over jest niewidoczny
         wynik = 0f;                     //zerowanie wyniku
         QTE_speed = 0.2f;
-   
+        ust.wlaczMuzyke(muzyka);
     }
 
     // Update is called once per frame
