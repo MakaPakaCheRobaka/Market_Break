@@ -12,7 +12,6 @@ public class Ustawienia : MonoBehaviour
     void Awake()
     {
         source = GetComponent<AudioSource>();
-        DontDestroyOnLoad(gameObject);
         dzwiek = true;
         muzyka = true;
     }

@@ -28,6 +28,7 @@ public class PlayerMovement : MonoBehaviour
     public float wynik;           // zmienna przechowuje info o wyniku gracza
     public AudioClip uderzenieDzwiek; // dźwięk uderzenie w przeszkodę
     public AudioClip muzyka; // dźwięk muzyki
+	public AudioClip skokDzwiek; // dźwięk skoku
     Ustawienia ust; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
     public float QTE_speed; // szybkość napełniania się paska QTE na korzyść tłumu
 	bool jump = false;
@@ -97,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
     {
 		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0)) {
 			if (wys_pos < -1) {
+				ust.odegrajDzwiek(skokDzwiek);
 				myRigidbody.velocity = new Vector2 (myRigidbody.velocity.x, jumpSpeed);
 			}
 		} 
@@ -108,7 +110,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (target.gameObject.tag == "Przeszkoda")
         {
-            ust.odegrajDzwiek(uderzenieDzwiek);
+			ust.odegrajDzwiek(uderzenieDzwiek);
             Debug.Log("Dotknięcie przeszkody");
             target.gameObject.AddComponent<Rigidbody2D>();
             target.collider.isTrigger = true;
