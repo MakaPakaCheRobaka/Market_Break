@@ -11,11 +11,19 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField]
     private float yMin;
 
-    private Transform target;
-
-    private float xMax;
+    [SerializeField]
     private float xMin;
 
+    [SerializeField]
+    private float xMax;
+
+
+    private Transform target;
+
+    /*
+    private float xMax;
+    private float xMin;
+    */
 
 	// Use this for initialization
 	void Start () {
@@ -28,6 +36,6 @@ public class CameraFollow : MonoBehaviour {
 	void LateUpdate () {
         xMax = target.GetComponent<Transform>().position.x;
         xMin = target.GetComponent<Transform>().position.x;
-        transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin, xMax), Mathf.Clamp(target.position.y, yMin, yMax), transform.position.z);
+        transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin+3, xMax), Mathf.Clamp(target.position.y, yMin, yMax), transform.position.z);
 	}
 }
