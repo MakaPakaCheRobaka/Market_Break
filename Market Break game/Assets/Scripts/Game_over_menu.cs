@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class Game_over_menu : MonoBehaviour
 {
-   
     public void GameOverMenu()   // po kliknięciu przycisku menu gra ładuje scene z Manu
     {
         SceneManager.LoadScene("Menu");

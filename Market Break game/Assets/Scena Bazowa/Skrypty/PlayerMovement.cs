@@ -30,14 +30,18 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip muzyka; // dźwięk muzyki
 	public AudioClip skokDzwiek; // dźwięk skoku
 	public AudioClip highscoreDzwiek; // dźwięk nowego rekordu
+	public AudioClip gameoverDzwiek; // dźwięk przegranej gry
+	public AudioClip tlumDzwiek; // odgłosy tłumu
     Ustawienia ust; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
     public float QTE_speed; // szybkość napełniania się paska QTE na korzyść tłumu
 	bool jump = false;
 	bool highscore = false;
+	bool game_over;
 
     // Use this for initialization
     void Start()
     {
+		game_over = false;
         ust = GameObject.Find("Ustawienia").GetComponent<Ustawienia>();
         myRigidbody = GetComponent<Rigidbody2D>();
         tlum = GameObject.FindGameObjectWithTag("Tlum").GetComponent<Rigidbody2D>();
@@ -64,10 +68,11 @@ public class PlayerMovement : MonoBehaviour
             Wynik2.SetActive(false);
             QTE();
 
-            if (zlapany)  // jeśli gracz przegrał QTE wyświetla się ekran Game Over z wynikiem i przyciskami menu i restartu
+			if ((zlapany) && (!game_over))  // jeśli gracz przegrał QTE wyświetla się ekran Game Over z wynikiem i przyciskami menu i restartu
             {
-
-				if(wynik > PlayerPrefs.GetInt("Highscore"))
+				game_over = true;
+				ust.odegrajDzwiek (gameoverDzwiek);
+				if(highscore == true)
 				{
 					PlayerPrefs.SetInt("Highscore", (int)wynik);
 					highscore = false;

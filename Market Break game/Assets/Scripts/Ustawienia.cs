@@ -4,10 +4,7 @@ using UnityEngine;
 
 public class Ustawienia : MonoBehaviour
 {
-
-    public bool dzwiek;
-    public bool muzyka;
-    AudioSource source;
+    public AudioSource source;
 
     void Awake()
     {
