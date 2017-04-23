@@ -12,13 +12,23 @@ public class Ustawienia : MonoBehaviour
     void Awake()
     {
         source = GetComponent<AudioSource>();
-        dzwiek = true;
-        muzyka = true;
+		if (!PlayerPrefs.HasKey ("Dzwiek")) 
+		{
+			PlayerPrefs.SetInt ("Dzwiek", 1);
+		}
+		if (!PlayerPrefs.HasKey ("Muzyka")) 
+		{
+			PlayerPrefs.SetInt ("Muzyka", 1);
+		}
+		if (!PlayerPrefs.HasKey ("Highscore")) 
+		{
+			PlayerPrefs.SetInt ("Highscore", 0);
+		}
     }
 
     public void odegrajDzwiek(AudioClip sound)
     {
-        if (dzwiek == true)
+		if (PlayerPrefs.GetInt("Dzwiek") == 1)
         {
             source.PlayOneShot(sound);
         }
@@ -27,7 +37,7 @@ public class Ustawienia : MonoBehaviour
 
     public void wlaczMuzyke(AudioClip sound)
     {
-        if (muzyka == true)
+		if (PlayerPrefs.GetInt("Muzyka") == 1)
         {
             source.PlayOneShot(sound);
         }

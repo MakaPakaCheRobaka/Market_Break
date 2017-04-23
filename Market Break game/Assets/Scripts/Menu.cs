@@ -11,7 +11,7 @@ public class Menu : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		text = GameObject.Find ("PrzyciskDźwięk").GetComponentInChildren<Text> ();
-		if (PlayerPrefs.GetInt("Dźwięk") == 1) 
+		if (PlayerPrefs.GetInt("Dzwiek") == 1) 
 		{
 			text.text = "DŹWIĘK: ON";
 		}
@@ -40,14 +40,14 @@ public class Menu : MonoBehaviour {
 	public void pressDzwiek()
 	{
 		text = GameObject.Find ("PrzyciskDźwięk").GetComponentInChildren<Text> ();
-		if (PlayerPrefs.GetInt("Dźwięk") == 1) 
+		if (PlayerPrefs.GetInt("Dzwiek") == 1) 
 		{
-			PlayerPrefs.SetInt("Dźwięk", 0);
+			PlayerPrefs.SetInt("Dzwiek", 0);
 			text.text = "DŹWIĘK: OFF";
 		}
 		else 
 		{
-			PlayerPrefs.SetInt("Dźwięk", 1);
+			PlayerPrefs.SetInt("Dzwiek", 1);
 			text.text = "DŹWIĘK: ON";
 		}
 	}

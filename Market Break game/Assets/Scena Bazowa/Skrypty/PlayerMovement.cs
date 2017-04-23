@@ -29,9 +29,11 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip uderzenieDzwiek; // dźwięk uderzenie w przeszkodę
     public AudioClip muzyka; // dźwięk muzyki
 	public AudioClip skokDzwiek; // dźwięk skoku
+	public AudioClip highscoreDzwiek; // dźwięk nowego rekordu
     Ustawienia ust; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
     public float QTE_speed; // szybkość napełniania się paska QTE na korzyść tłumu
 	bool jump = false;
+	bool highscore = false;
 
     // Use this for initialization
     void Start()
@@ -64,7 +66,12 @@ public class PlayerMovement : MonoBehaviour
 
             if (zlapany)  // jeśli gracz przegrał QTE wyświetla się ekran Game Over z wynikiem i przyciskami menu i restartu
             {
-                Debug.Log("Złapany");
+
+				if(wynik > PlayerPrefs.GetInt("Highscore"))
+				{
+					PlayerPrefs.SetInt("Highscore", (int)wynik);
+					highscore = false;
+				}
                 Wynik2.SetActive(false);
                 Pasek_QTE.SetActive(false);
                 Wynik_game_over.text = "Twój wynik : " + Mathf.Round(wynik);
@@ -88,6 +95,11 @@ public class PlayerMovement : MonoBehaviour
         {
             wynik = Vector3.Distance(gracz.position, punkt_startowy.position); // wynik jest to dystans jaki pokonał gracz od punktu startowego
             Wynik.text = "" + Mathf.Round(wynik);  // wyświetla zaokrąglony wynik 
+			if((wynik > PlayerPrefs.GetInt("Highscore")) && (highscore == false))
+			{
+				highscore = true;
+				ust.odegrajDzwiek (highscoreDzwiek);
+			}
             HandleMovement();
         }
 

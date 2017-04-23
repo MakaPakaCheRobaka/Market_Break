@@ -2372,6 +2372,7 @@ MonoBehaviour:
   uderzenieDzwiek: {fileID: 8300000, guid: a240d923ba0ee4a47a21468d5a0aa5a6, type: 3}
   muzyka: {fileID: 8300000, guid: 2aaaa19663658d144bb4f68332eec480, type: 3}
   skokDzwiek: {fileID: 8300000, guid: b864cea3ceb4da34797f38c2b0898161, type: 3}
+  highscoreDzwiek: {fileID: 8300000, guid: 4dde716bc1f14ce4cb178750b86be3d2, type: 3}
   QTE_speed: 0
 --- !u!1 &1893706043
 GameObject:
