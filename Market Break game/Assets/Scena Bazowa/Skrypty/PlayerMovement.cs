@@ -53,6 +53,7 @@ public class PlayerMovement : MonoBehaviour
         wynik = 0f;                     //zerowanie wyniku
         QTE_speed = 0.2f;
         ust.wlaczMuzyke(muzyka);
+
     }
 
     // Update is called once per frame
@@ -70,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
 			if ((zlapany) && (!game_over))  // jeśli gracz przegrał QTE wyświetla się ekran Game Over z wynikiem i przyciskami menu i restartu
             {
+				Pasek_QTE.SetActive(false);
 				game_over = true;
 				ust.odegrajDzwiek (gameoverDzwiek);
 				if(highscore == true)
@@ -78,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 					highscore = false;
 				}
                 Wynik2.SetActive(false);
-                Pasek_QTE.SetActive(false);
+                //Pasek_QTE.SetActive(false);
                 Wynik_game_over.text = "Twój wynik : " + Mathf.Round(wynik);
                 Game_Over.SetActive(true);
                 
