@@ -12,11 +12,13 @@ public class PlayerMovement : MonoBehaviour
     public GameObject Q; //QTE 
     public GameObject Game_Over; //Ekran Game Over 
     public GameObject Pasek_QTE;
+    public GameObject Tap;
     public Image pasek; // pasek QTE
     public Transform gracz;
     public Transform punkt_startowy;
     public Text Wynik;          //tekst z wynikiem
     public Text Wynik_game_over;     //tekst z wynikiem w ekranie game over
+    public Text Naj_Wynik;           //tekst z najlepszym wynikiem
     public GameObject Wynik2;  //wynik podczas rozgrywki
     public float jumpSpeed;
     public float moveSpeed;
@@ -37,6 +39,8 @@ public class PlayerMovement : MonoBehaviour
 	bool jump = false;
 	bool highscore = false;
 	bool game_over;
+    public  Vector3 spawnerpos;
+    public GameObject spawner;
 
     // Use this for initialization
     void Start()
@@ -49,26 +53,28 @@ public class PlayerMovement : MonoBehaviour
         potk = 0;                       // liczba potknięć = 0
         pasek.fillAmount = 0.50f;       // ustawienie paska w połowie
         Q.SetActive(false);             //pasek QTE jest niewidoczny
+        Tap.SetActive(false);           //Tap jest niewidoczny
         Game_Over.SetActive(false);     //pasek GAme Over jest niewidoczny
         wynik = 0f;                     //zerowanie wyniku
         QTE_speed = 0.2f;
         ust.wlaczMuzyke(muzyka);
-
+        
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
 
-
+        spawnerpos = spawner.transform.position;
 
         wys_pos = myRigidbody.position.y; // aktualna wysokość postaci
 
-        if (potk == 3)  // jeśli gracz potknoł się 3 razy uruchamia się QTE
+        if (potk >= 3)  // jeśli gracz potknoł się 3 razy uruchamia się QTE
         {
             Wynik2.SetActive(false);
             QTE();
-
+            spawnerpos.y = -5f;
+            spawner.transform.position = spawnerpos;
 			if ((zlapany) && (!game_over))  // jeśli gracz przegrał QTE wyświetla się ekran Game Over z wynikiem i przyciskami menu i restartu
             {
 				Pasek_QTE.SetActive(false);
@@ -82,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
                 Wynik2.SetActive(false);
                 //Pasek_QTE.SetActive(false);
                 Wynik_game_over.text = "Twój wynik : " + Mathf.Round(wynik);
+                Naj_Wynik.text= "Najlepszy wynik : " + PlayerPrefs.GetInt("Highscore");
                 Game_Over.SetActive(true);
                 
             }
@@ -91,11 +98,14 @@ public class PlayerMovement : MonoBehaviour
                 Debug.Log("Uwolnił");
                 tlum.AddForce(new Vector2(-300, 0) * 40 * Time.deltaTime); //odsunięcie tłumu
                 Q.SetActive(false);    //pasek QTE jest niewidoczny  
+                Tap.SetActive(false);
                 Wynik2.SetActive(true);
                 potk = 0;
                 wolny = false;
                 pasek.fillAmount = 0.5f;
                 QTE_speed = QTE_speed + 0.01f;
+                spawnerpos.y = 0f;
+                spawner.transform.position = spawnerpos;
             }
         }
         else
@@ -106,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				highscore = true;
 				ust.odegrajDzwiek (highscoreDzwiek);
+                Wynik.color=Color.green;
 			}
             HandleMovement();
         }
@@ -143,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         Q.SetActive(true); //włącza się QTE
-
+        Tap.SetActive(true);
         pasek.fillAmount = pasek.fillAmount + QTE_speed * Time.deltaTime;  // pasek wypełania się na korzyść tłumu
 
         if (Input.GetMouseButtonDown(0)) //gracz musi szybko klikać aby się uwolnić od tłumu

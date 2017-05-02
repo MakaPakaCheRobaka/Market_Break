@@ -16,6 +16,7 @@ function Start() {
     InvokeRepeating("addEnemy3", 5, spawnTime3);
 }
 
+
 // New function to spawn an enemy
 function addEnemy() {
     // Get the renderer component of the spawn object
@@ -29,7 +30,7 @@ function addEnemy() {
     var x2 = transform.position.x + rd.bounds.size.x/2;
 
     // Randomly pick a point within the spawn object
-    var spawnPoint = Vector2(Random.Range(x1, x2), transform.position.y);
+    var spawnPoint = Vector2(Random.Range(x1, x2), transform.position.y-2.2);
 
     // Create an enemy at the 'spawnPoint' position
     Instantiate(enemy, spawnPoint, Quaternion.identity);
@@ -47,7 +48,7 @@ function addEnemy2() {
     var x2 = transform.position.x + rd.bounds.size.x/2;
 
     // Randomly pick a point within the spawn object
-    var spawnPoint = Vector2(Random.Range(x1, x2), transform.position.y);
+    var spawnPoint = Vector2(Random.Range(x1, x2), transform.position.y-2.2);
 
     // Create an enemy at the 'spawnPoint' position
     Instantiate(enemy2, spawnPoint, Quaternion.identity);
@@ -65,7 +66,7 @@ function addEnemy3() {
     var x2 = transform.position.x + rd.bounds.size.x/2;
 
     // Randomly pick a point within the spawn object
-    var spawnPoint = Vector2(Random.Range(x1, x2), transform.position.y);
+    var spawnPoint = Vector2(Random.Range(x1, x2), transform.position.y-2.2);
 
     // Create an enemy at the 'spawnPoint' position
     Instantiate(enemy3, spawnPoint, Quaternion.identity);
