@@ -7,10 +7,14 @@ using UnityEngine.UI;
 public class Menu : MonoBehaviour {
 
 	Text text;
+	Ustawienia ust;
+	public AudioClip menuMusic;
 
 	// Use this for initialization
 	void Start () {
+		ust = GameObject.Find ("Ustawienia").GetComponent<Ustawienia> ();
 		text = GameObject.Find ("PrzyciskDźwięk").GetComponentInChildren<Text> ();
+		ust.wlaczMuzyke (menuMusic);
 		if (PlayerPrefs.GetInt("Dzwiek") == 1) 
 		{
 			text.text = "DŹWIĘK: ON";
@@ -59,11 +63,14 @@ public class Menu : MonoBehaviour {
 		{
 			PlayerPrefs.SetInt("Muzyka", 0);
 			text.text = "MUZYKA: OFF";
+			ust.resetSound ();
 		}
 		else 
 		{
 			PlayerPrefs.SetInt("Muzyka", 1);
 			text.text = "MUZYKA: ON";
+			ust.resetSound ();
+			ust.wlaczMuzyke (menuMusic);
 		}
 	}
 

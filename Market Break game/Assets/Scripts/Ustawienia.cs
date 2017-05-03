@@ -23,6 +23,12 @@ public class Ustawienia : MonoBehaviour
 		}
     }
 
+	public void resetSound()
+	{
+		source.enabled = false;
+		source.enabled = true;
+	}
+
     public void odegrajDzwiek(AudioClip sound)
     {
 		if (PlayerPrefs.GetInt("Dzwiek") == 1)

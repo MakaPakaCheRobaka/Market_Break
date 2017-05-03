@@ -41,10 +41,12 @@ public class PlayerMovement : MonoBehaviour
 	bool game_over;
     public  Vector3 spawnerpos;
     public GameObject spawner;
+	public Animator newRecord;
 
     // Use this for initialization
     void Start()
     {
+		newRecord = GameObject.Find ("NewRecordText").GetComponent<Animator> ();
 		game_over = false;
         ust = GameObject.Find("Ustawienia").GetComponent<Ustawienia>();
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -111,9 +113,11 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             wynik = Vector3.Distance(gracz.position, punkt_startowy.position); // wynik jest to dystans jaki pokonał gracz od punktu startowego
-            Wynik.text = "" + Mathf.Round(wynik);  // wyświetla zaokrąglony wynik 
+            //Wynik.text = "" + Mathf.Round(wynik);  // wyświetla zaokrąglony wynik
+			Wynik.text = "Wynik: " + Mathf.Round(wynik) + " Rekord: " + PlayerPrefs.GetInt("Highscore");
 			if((wynik > PlayerPrefs.GetInt("Highscore")) && (highscore == false))
 			{
+				newRecord.SetTrigger ("NewRecord");
 				highscore = true;
 				ust.odegrajDzwiek (highscoreDzwiek);
                 Wynik.color=Color.green;
