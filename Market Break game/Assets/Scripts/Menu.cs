@@ -15,6 +15,13 @@ public class Menu : MonoBehaviour {
 		ust = GameObject.Find ("Ustawienia").GetComponent<Ustawienia> ();
 		text = GameObject.Find ("PrzyciskDźwięk").GetComponentInChildren<Text> ();
 		ust.wlaczMuzyke (menuMusic);
+
+		if (!PlayerPrefs.HasKey ("FirstTime")) 
+		{
+			PlayerPrefs.SetInt ("FirstTime", 1);
+		} 
+		else PlayerPrefs.SetInt ("FirstTime", 0);
+
 		if (PlayerPrefs.GetInt("Dzwiek") == 1) 
 		{
 			text.text = "DŹWIĘK: ON";

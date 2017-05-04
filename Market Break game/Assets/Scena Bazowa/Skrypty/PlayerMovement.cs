@@ -154,6 +154,28 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+	void OnTriggerEnter2D(Collider2D target)
+	{
+		if(PlayerPrefs.GetInt("FirstTime") == 1)
+		{
+			if(target.gameObject.tag == "Przeszkoda")
+			{
+				Tap.SetActive(true);
+			}
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D target)
+	{
+		if (PlayerPrefs.GetInt ("FirstTime") == 1) 
+		{
+			if (target.gameObject.tag == "Przeszkoda") 
+			{
+				Tap.SetActive (false);
+			}
+		}
+	}
+
     void QTE()
     {
 
