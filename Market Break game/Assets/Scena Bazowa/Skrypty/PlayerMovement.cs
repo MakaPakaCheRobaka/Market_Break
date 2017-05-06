@@ -21,7 +21,8 @@ public class PlayerMovement : MonoBehaviour
     public Text Wynik;          //tekst z wynikiem
     public Text Wynik_game_over;     //tekst z wynikiem w ekranie game over
     public Text Naj_Wynik;           //tekst z najlepszym wynikiem
-	public Text superPowerText;
+	public Image superPowerText;
+	public Image doubleJumpText;
     public GameObject Wynik2;  //wynik podczas rozgrywki
     public float jumpSpeed;	// Moc skoku
     public float moveSpeed;	// Prędkość postaci
@@ -68,7 +69,14 @@ public class PlayerMovement : MonoBehaviour
         wynik = 0f;                     //zerowanie wyniku
         QTE_speed = 0.2f;
         ust.wlaczMuzyke(muzyka);
-        
+		if (PlayerPrefs.GetInt ("DoubleJump") == 0) 
+		{
+			doubleJumpText.gameObject.SetActive (false);
+		}
+		if (PlayerPrefs.GetInt ("SuperPower") == 0) 
+		{
+			superPowerText.transform.parent.gameObject.SetActive (false);
+		}
     }
 
 	void SuperPower()
@@ -76,12 +84,13 @@ public class PlayerMovement : MonoBehaviour
 		if ((superCharge < 1000) && (!superPowerIsActive)) 
 		{
 			superCharge++;
+			superPowerText.fillAmount = (float)superCharge / 1000;
+			Debug.Log (superPowerText.fillAmount);
 		} 
 		else if(superCharge == 1000)
 		{
 			superCharge = 0;
 			superPowerIsActive = true;
-			superPowerText.gameObject.SetActive (true);
 		}
 	}
 
@@ -203,7 +212,6 @@ public class PlayerMovement : MonoBehaviour
 			{
 				tRigidbody.AddForce (new Vector2 (1000, 200) * 100 * Time.deltaTime);
 				superPowerIsActive = false;
-				superPowerText.gameObject.SetActive (false);
 			}
         }
     }
