@@ -9,6 +9,8 @@ public class Ulepszenia : MonoBehaviour {
 	Text pointsText;
 	Text doubleJumpCostText;
 	Button doubleJumpButton;
+	Text superPowerCostText;
+	Button superPowerButton;
 	public GameObject gameOverCanvas;
 	public GameObject upgradeCanvas;
 
@@ -34,19 +36,57 @@ public class Ulepszenia : MonoBehaviour {
 		doubleJumpButton.interactable = false;
 	}
 
+	public void SuperPowerBuy()
+	{
+		if (PlayerPrefs.GetInt ("Points") < 5000) 
+		{
+			infoText.text = "Nie stać cię na zakup tego ulepszenia!";
+		} 
+		else 
+		{
+			PlayerPrefs.SetInt ("Points", PlayerPrefs.GetInt ("Points") - 5000);
+			PlayerPrefs.SetInt ("SuperPower", 1);
+			infoText.text = "Zakupiono ulepszenie!";
+			SuperPowerBought ();
+		}
+
+	}
+
+	void SuperPowerBought()
+	{
+		superPowerCostText.text = "Kupione";
+		superPowerButton.interactable = false;
+	}
+
 	public void backPress()
 	{
 		gameOverCanvas.SetActive (true);
 		upgradeCanvas.SetActive (false);
 	}
 
+	void Update()
+	{
+		pointsText.text = "Dostępne punkty: " + PlayerPrefs.GetInt ("Points").ToString ();
+	}
+
 	void Start()
 	{
+		if (!PlayerPrefs.HasKey ("DoubleJump")) 
+		{
+			PlayerPrefs.SetInt ("DoubleJump", 0);
+		}
+
+		if (!PlayerPrefs.HasKey ("SuperPower")) 
+		{
+			PlayerPrefs.SetInt ("SuperPower", 0);
+		}
+
 		infoText = GameObject.Find ("InfoText").GetComponent<Text> ();
 		pointsText = GameObject.Find ("PointsText").GetComponent<Text> ();
 		doubleJumpCostText = GameObject.Find ("DoubleJumpCostText").GetComponent<Text> ();
 		doubleJumpButton = GameObject.Find ("DoubleJumpButton").GetComponent<Button> ();
-		pointsText.text = "Dostępne punkty: " + PlayerPrefs.GetInt ("Points").ToString();
+		superPowerCostText = GameObject.Find ("SuperPowerCostText").GetComponent<Text> ();
+		superPowerButton = GameObject.Find ("SuperPowerButton").GetComponent<Button> ();
 
 		if (PlayerPrefs.GetInt ("DoubleJump") == 1) 
 		{
@@ -55,6 +95,14 @@ public class Ulepszenia : MonoBehaviour {
 		else 
 		{
 			doubleJumpCostText.text = "Koszt: 1000";
+		}
+
+		if (PlayerPrefs.GetInt ("SuperPower") == 1) {
+			SuperPowerBought ();
+		}
+		else 
+		{
+			superPowerCostText.text = "Koszt: 5000";
 		}
 	}
 }

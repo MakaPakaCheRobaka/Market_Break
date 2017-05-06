@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public Text Wynik;          //tekst z wynikiem
     public Text Wynik_game_over;     //tekst z wynikiem w ekranie game over
     public Text Naj_Wynik;           //tekst z najlepszym wynikiem
+	public Text superPowerText;
     public GameObject Wynik2;  //wynik podczas rozgrywki
     public float jumpSpeed;	// Moc skoku
     public float moveSpeed;	// Prędkość postaci
@@ -45,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
     public GameObject spawner;
 	public Animator newRecord;	// Animacja pobicia rekordu
 	int jumps = 0; // Ilość dostępnych skoków
+	int superCharge = 0; // Poziom naładowania super mocy
+	bool superPowerIsActive = false;
 
     // Use this for initialization
     void Start()
@@ -68,9 +71,28 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+	void SuperPower()
+	{
+		if ((superCharge < 1000) && (!superPowerIsActive)) 
+		{
+			superCharge++;
+		} 
+		else if(superCharge == 1000)
+		{
+			superCharge = 0;
+			superPowerIsActive = true;
+			superPowerText.gameObject.SetActive (true);
+		}
+	}
+
     // Update is called once per frame
     void LateUpdate()
     {
+
+		if (PlayerPrefs.GetInt ("SuperPower") == 1) 
+		{
+			SuperPower ();
+		}
 
         spawnerpos = spawner.transform.position;
 
@@ -153,16 +175,6 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D target)
     {
-        if (target.gameObject.tag == "Przeszkoda")	//	Dotknięcie przeszkody
-        {
-			ust.odegrajDzwiek(uderzenieDzwiek);
-            target.gameObject.AddComponent<Rigidbody2D>();
-            target.collider.isTrigger = true;
-            tlum.AddForce(new Vector2(150, 0) * 40 * Time.deltaTime);
-            potk++;                                                     // zwiększam liczbe wpadnięć na przeszkodę
-            //tlum.Translate (Vector2.right * Time.deltaTime * 10);
-        }
-
 		if (target.gameObject.tag == "Ground") // Odnawianie ilości skoków przy zetknięciu z ziemią
 		{
 			if ((PlayerPrefs.GetInt ("DoubleJump") == 1) && (jumps < 2)) 
@@ -174,6 +186,26 @@ public class PlayerMovement : MonoBehaviour
 				jumps = 1;
 			}
 		}
+
+        if (target.gameObject.tag == "Przeszkoda")	//	Dotknięcie przeszkody
+        {
+			target.gameObject.AddComponent<Rigidbody2D> ();
+			Rigidbody2D tRigidbody = target.gameObject.GetComponent<Rigidbody2D> ();
+			ust.odegrajDzwiek (uderzenieDzwiek);
+			target.collider.isTrigger = true;
+			if (!superPowerIsActive) 
+			{
+				tlum.AddForce (new Vector2 (150, 0) * 40 * Time.deltaTime);
+				potk++;                                                     // zwiększam liczbe wpadnięć na przeszkodę
+				//tlum.Translate (Vector2.right * Time.deltaTime * 10);
+			} 
+			else 
+			{
+				tRigidbody.AddForce (new Vector2 (1000, 200) * 100 * Time.deltaTime);
+				superPowerIsActive = false;
+				superPowerText.gameObject.SetActive (false);
+			}
+        }
     }
 
 	void OnTriggerEnter2D(Collider2D target)	// Sprawdzanie, czy przed graczem jest przeszkoda

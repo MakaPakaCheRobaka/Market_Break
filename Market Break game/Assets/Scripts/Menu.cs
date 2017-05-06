@@ -18,11 +18,6 @@ public class Menu : MonoBehaviour {
 		textMuzyka = GameObject.Find ("PrzyciskMuzyka").GetComponentInChildren<Text> ();
 		ust.wlaczMuzyke (menuMusic);
 
-		if (!PlayerPrefs.HasKey ("DoubleJump")) 
-		{
-			PlayerPrefs.SetInt ("DoubleJump", 0);
-		}
-
 		if (!PlayerPrefs.HasKey ("Points")) 
 		{
 			PlayerPrefs.SetInt ("Points", 0);
