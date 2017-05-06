@@ -10,7 +10,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D myRigidbody;
     private Rigidbody2D tlum;
     public GameObject Q; //QTE 
-    public GameObject Game_Over; //Ekran Game Over 
+	public GameObject GameCanvas;
+    public GameObject Game_Over; //Ekran Game Over
+	public GameObject UpgradeCanvas;
     public GameObject Pasek_QTE;
     public GameObject Tap;
     public Image pasek; // pasek QTE
@@ -20,13 +22,13 @@ public class PlayerMovement : MonoBehaviour
     public Text Wynik_game_over;     //tekst z wynikiem w ekranie game over
     public Text Naj_Wynik;           //tekst z najlepszym wynikiem
     public GameObject Wynik2;  //wynik podczas rozgrywki
-    public float jumpSpeed;
-    public float moveSpeed;
-    public float wys_pos; // zmianna która pokazuje aktualną wysokość postaci
-    public float skok_poz_str; // zmianna zapamiętyje wysokość startową postaci
+    public float jumpSpeed;	// Moc skoku
+    public float moveSpeed;	// Prędkość postaci
+    public float wys_pos; // zmienna która pokazuje aktualną wysokość postaci
+    public float skok_poz_str; // zmienna zapamiętyje wysokość startową postaci
     public int potk; // zmienna która przechowuje ile razy gracz wpadł na przeszkodę
-    public bool wolny = false; // zmianna która przechowuje info czy gracz się uwolnił przed tłumem
-    public bool zlapany = false; // zmianna która przechowuje info czy tłum złąpał gracza
+    public bool wolny = false; // zmienna która przechowuje info czy gracz się uwolnił przed tłumem
+    public bool zlapany = false; // zmienna która przechowuje info czy tłum złąpał gracza
     public float wynik;           // zmienna przechowuje info o wyniku gracza
     public AudioClip uderzenieDzwiek; // dźwięk uderzenie w przeszkodę
     public AudioClip muzyka; // dźwięk muzyki
@@ -41,12 +43,13 @@ public class PlayerMovement : MonoBehaviour
 	bool game_over;
     public  Vector3 spawnerpos;
     public GameObject spawner;
-	public Animator newRecord;
+	public Animator newRecord;	// Animacja pobicia rekordu
+	int jumps = 0; // Ilość dostępnych skoków
 
     // Use this for initialization
     void Start()
     {
-		newRecord = GameObject.Find ("NewRecordText").GetComponent<Animator> ();
+		newRecord = GameObject.Find("NewRecordText").GetComponent<Animator> ();
 		game_over = false;
         ust = GameObject.Find("Ustawienia").GetComponent<Ustawienia>();
         myRigidbody = GetComponent<Rigidbody2D>();
@@ -56,7 +59,9 @@ public class PlayerMovement : MonoBehaviour
         pasek.fillAmount = 0.50f;       // ustawienie paska w połowie
         Q.SetActive(false);             //pasek QTE jest niewidoczny
         Tap.SetActive(false);           //Tap jest niewidoczny
+		GameCanvas.SetActive(true);
         Game_Over.SetActive(false);     //pasek GAme Over jest niewidoczny
+		UpgradeCanvas.SetActive(false);
         wynik = 0f;                     //zerowanie wyniku
         QTE_speed = 0.2f;
         ust.wlaczMuzyke(muzyka);
@@ -79,6 +84,9 @@ public class PlayerMovement : MonoBehaviour
             spawner.transform.position = spawnerpos;
 			if ((zlapany) && (!game_over))  // jeśli gracz przegrał QTE wyświetla się ekran Game Over z wynikiem i przyciskami menu i restartu
             {
+				int newPoints = PlayerPrefs.GetInt ("Points") + (int)wynik;	// Sumowanie wyniku do ogólnej liczby punktów
+				PlayerPrefs.SetInt ("Points", newPoints);	// Ustawianie nowej liczby punktów
+
 				Pasek_QTE.SetActive(false);
 				game_over = true;
 				ust.odegrajDzwiek (gameoverDzwiek);
@@ -91,13 +99,14 @@ public class PlayerMovement : MonoBehaviour
                 //Pasek_QTE.SetActive(false);
                 Wynik_game_over.text = "Twój wynik : " + Mathf.Round(wynik);
                 Naj_Wynik.text= "Najlepszy wynik : " + PlayerPrefs.GetInt("Highscore");
+
+				GameCanvas.SetActive (false);
                 Game_Over.SetActive(true);
                 
             }
 
             if (wolny) // jeśli gracz wygrał QTE biegnie dalej a tłum się odsuwa
             {
-                Debug.Log("Uwolnił");
                 tlum.AddForce(new Vector2(-300, 0) * 40 * Time.deltaTime); //odsunięcie tłumu
                 Q.SetActive(false);    //pasek QTE jest niewidoczny  
                 Tap.SetActive(false);
@@ -128,10 +137,12 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void HandleMovement()
+    private void HandleMovement()	// Funkcja odpowiedzialna za ruch w prawo i wykonywanie skoku
     {
 		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0)) {
-			if (wys_pos < -1) {
+			if (jumps > 0) 
+			{
+				jumps--;
 				ust.odegrajDzwiek(skokDzwiek);
 				myRigidbody.velocity = new Vector2 (myRigidbody.velocity.x, jumpSpeed);
 			}
@@ -142,19 +153,30 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D target)
     {
-        if (target.gameObject.tag == "Przeszkoda")
+        if (target.gameObject.tag == "Przeszkoda")	//	Dotknięcie przeszkody
         {
 			ust.odegrajDzwiek(uderzenieDzwiek);
-            Debug.Log("Dotknięcie przeszkody");
             target.gameObject.AddComponent<Rigidbody2D>();
             target.collider.isTrigger = true;
             tlum.AddForce(new Vector2(150, 0) * 40 * Time.deltaTime);
             potk++;                                                     // zwiększam liczbe wpadnięć na przeszkodę
             //tlum.Translate (Vector2.right * Time.deltaTime * 10);
         }
+
+		if (target.gameObject.tag == "Ground") // Odnawianie ilości skoków przy zetknięciu z ziemią
+		{
+			if ((PlayerPrefs.GetInt ("DoubleJump") == 1) && (jumps < 2)) 
+			{
+				jumps = 2;
+			}
+			if ((PlayerPrefs.GetInt ("DoubleJump") == 0) && (jumps < 1)) 
+			{
+				jumps = 1;
+			}
+		}
     }
 
-	void OnTriggerEnter2D(Collider2D target)
+	void OnTriggerEnter2D(Collider2D target)	// Sprawdzanie, czy przed graczem jest przeszkoda
 	{
 		if(PlayerPrefs.GetInt("FirstTime") == 1)
 		{
@@ -165,7 +187,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-	void OnTriggerExit2D(Collider2D target)
+	void OnTriggerExit2D(Collider2D target)		// Sprawdzanie, czy przed graczem nie ma już przeszkody
 	{
 		if (PlayerPrefs.GetInt ("FirstTime") == 1) 
 		{
@@ -191,13 +213,11 @@ public class PlayerMovement : MonoBehaviour
         if (pasek.fillAmount < 0.01)
         {
             wolny = true;
-            Debug.Log("Wolny");
         }
 
         if (pasek.fillAmount >= 1)
         {
             zlapany = true;
-            Debug.Log("Złapany");
         }
 
     }

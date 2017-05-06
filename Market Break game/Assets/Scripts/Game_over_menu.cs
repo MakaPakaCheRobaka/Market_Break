@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class Game_over_menu : MonoBehaviour
 {
 	Ustawienia ust;
+	public GameObject gameOverCanvas;
+	public GameObject upgradeCanvas;
 
 	void resetSound()
 	{
@@ -25,6 +27,12 @@ public class Game_over_menu : MonoBehaviour
 		resetSound ();
         SceneManager.LoadScene("scena");
     }
+
+	public void GameOverUpgrade()
+	{
+		gameOverCanvas.SetActive (false);
+		upgradeCanvas.SetActive (true);
+	}
 }
 
     

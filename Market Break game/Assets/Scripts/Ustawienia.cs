@@ -9,7 +9,11 @@ public class Ustawienia : MonoBehaviour
     void Awake()
     {
         source = GetComponent<AudioSource>();
-		if (!PlayerPrefs.HasKey ("Dzwiek")) 
+
+		/* Poniżej sprawdzanie, czy zmienne odpowiedzialne za dźwięk, muzykę i najlepszy wynik istnieją,
+		 * jeśli nie to dźwięk i muzyka są ustawiane domyślnie na włączone, a najlepszy wynik na 0 */
+
+		if (!PlayerPrefs.HasKey ("Dzwiek"))
 		{
 			PlayerPrefs.SetInt ("Dzwiek", 1);
 		}
@@ -23,13 +27,13 @@ public class Ustawienia : MonoBehaviour
 		}
     }
 
-	public void resetSound()
+	public void resetSound() // Funkcja odpowiedzialna za resetowanie komponentu AudioSource
 	{
 		source.enabled = false;
 		source.enabled = true;
 	}
 
-    public void odegrajDzwiek(AudioClip sound)
+    public void odegrajDzwiek(AudioClip sound) // Funkcja odpowiedzialna za odegranie pojedynczego dźwięku
     {
 		if (PlayerPrefs.GetInt("Dzwiek") == 1)
         {
@@ -38,7 +42,7 @@ public class Ustawienia : MonoBehaviour
 
     }
 
-    public void wlaczMuzyke(AudioClip sound)
+    public void wlaczMuzyke(AudioClip sound) // Funkcja odpowiedzialna za włączenie muzyki
     {
 		if (PlayerPrefs.GetInt("Muzyka") == 1)
         {
