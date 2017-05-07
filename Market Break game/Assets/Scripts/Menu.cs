@@ -8,14 +8,19 @@ public class Menu : MonoBehaviour {
 
 	Text textDzwiek;
 	Text textMuzyka;
+	Text textTips;
 	Ustawienia ust;
 	public AudioClip menuMusic;
+	Tips tips;
 
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
 		ust = GameObject.Find ("Ustawienia").GetComponent<Ustawienia> ();
 		textDzwiek = GameObject.Find ("PrzyciskDźwięk").GetComponentInChildren<Text> ();
 		textMuzyka = GameObject.Find ("PrzyciskMuzyka").GetComponentInChildren<Text> ();
+		textTips = GameObject.Find ("PrzyciskWskazówki").GetComponentInChildren<Text> ();
+		tips = GameObject.Find ("Fade").GetComponent<Tips> ();
 		ust.wlaczMuzyke (menuMusic);
 
 		if (!PlayerPrefs.HasKey ("Points")) 
@@ -38,6 +43,13 @@ public class Menu : MonoBehaviour {
 		{
 			textMuzyka.text = "MUZYKA: OFF";
 		}
+
+		if (PlayerPrefs.GetInt ("Tips") == 1) 
+		{
+			tips.tips (0);
+			tips.tips (1);
+		} 
+		else textTips.text = "WSKAZÓWKI: OFF";
 	}
 
 	public void pressStart() // Funkcja odpowiedzialna za kliknięcie przycisku start
@@ -73,6 +85,20 @@ public class Menu : MonoBehaviour {
 			textMuzyka.text = "MUZYKA: ON";
 			ust.resetSound ();
 			ust.wlaczMuzyke (menuMusic);
+		}
+	}
+
+	public void pressTips()
+	{
+		if (PlayerPrefs.GetInt("Tips") == 1) 
+		{
+			PlayerPrefs.SetInt("Tips", 0);
+			textTips.text = "WSKAZÓWKI: OFF";
+		}
+		else 
+		{
+			PlayerPrefs.SetInt("Tips", 1);
+			textTips.text = "WSKAZÓWKI: ON";
 		}
 	}
 

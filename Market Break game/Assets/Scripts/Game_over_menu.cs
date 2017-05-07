@@ -9,6 +9,12 @@ public class Game_over_menu : MonoBehaviour
 	Ustawienia ust;
 	public GameObject gameOverCanvas;
 	public GameObject upgradeCanvas;
+	public Tips tips;
+
+	void Start()
+	{
+		tips.tips (4);
+	}
 
 	void resetSound()
 	{

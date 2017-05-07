@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ustawienia : MonoBehaviour
 {
     public AudioSource source;
+	public bool paused = false;
 
     void Awake()
     {
@@ -24,6 +25,10 @@ public class Ustawienia : MonoBehaviour
 		if (!PlayerPrefs.HasKey ("Highscore")) 
 		{
 			PlayerPrefs.SetInt ("Highscore", 0);
+		}
+		if (!PlayerPrefs.HasKey ("Tips")) 
+		{
+			PlayerPrefs.SetInt ("Tips", 1);
 		}
     }
 

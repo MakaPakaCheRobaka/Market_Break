@@ -50,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
 	int superCharge = 0; // Poziom naładowania super mocy
 	bool superPowerIsActive = false;
 	Animator gAnim;
+	public Tips tips;
+	bool qteTip = true;
 
     // Use this for initialization
     void Start()
@@ -97,86 +99,76 @@ public class PlayerMovement : MonoBehaviour
 
     // Update is called once per frame
     void LateUpdate()
-    {
-		if (PlayerPrefs.GetInt ("SuperPower") == 1) 
-		{
-			SuperPower ();
-		}
-
-		if (PlayerPrefs.GetInt ("DoubleJump") == 1) 
-		{
-			doubleJumpText.fillAmount = (float)jumps / 2;
-		}
-
-		if (myRigidbody.velocity.y < 0) 
-		{
-			gAnim.SetBool ("JumpDown", true);
-			gAnim.SetBool ("JumpUp", false);
-		}
-
-        spawnerpos = spawner.transform.position;
-
-        wys_pos = myRigidbody.position.y; // aktualna wysokość postaci
-
-        if (potk >= 3)  // jeśli gracz potknoł się 3 razy uruchamia się QTE
-        {
-            Wynik2.SetActive(false);
-            QTE();
-            spawnerpos.y = -5f;
-            spawner.transform.position = spawnerpos;
-			if ((zlapany) && (!game_over))  // jeśli gracz przegrał QTE wyświetla się ekran Game Over z wynikiem i przyciskami menu i restartu
-            {
-				int newPoints = PlayerPrefs.GetInt ("Points") + (int)wynik;	// Sumowanie wyniku do ogólnej liczby punktów
-				PlayerPrefs.SetInt ("Points", newPoints);	// Ustawianie nowej liczby punktów
-
-				Pasek_QTE.SetActive(false);
-				game_over = true;
-				ust.odegrajDzwiek (gameoverDzwiek);
-				if(highscore == true)
-				{
-					PlayerPrefs.SetInt("Highscore", (int)wynik);
-					highscore = false;
-				}
-                Wynik2.SetActive(false);
-                //Pasek_QTE.SetActive(false);
-                Wynik_game_over.text = "Twój wynik : " + Mathf.Round(wynik);
-                Naj_Wynik.text= "Najlepszy wynik : " + PlayerPrefs.GetInt("Highscore");
-
-				GameCanvas.SetActive (false);
-                Game_Over.SetActive(true);
-                
-            }
-
-            if (wolny) // jeśli gracz wygrał QTE biegnie dalej a tłum się odsuwa
-            {
-                tlum.AddForce(new Vector2(-300, 0) * 40 * Time.deltaTime); //odsunięcie tłumu
-                Q.SetActive(false);    //pasek QTE jest niewidoczny  
-                Tap.SetActive(false);
-                Wynik2.SetActive(true);
-                potk = 0;
-                wolny = false;
-                pasek.fillAmount = 0.5f;
-                QTE_speed = QTE_speed + 0.01f;
-                spawnerpos.y = 0f;
-                spawner.transform.position = spawnerpos;
-            }
-        }
-        else
-        {
-            wynik = Vector3.Distance(gracz.position, punkt_startowy.position); // wynik jest to dystans jaki pokonał gracz od punktu startowego
-            //Wynik.text = "" + Mathf.Round(wynik);  // wyświetla zaokrąglony wynik
-			Wynik.text = "Wynik: " + Mathf.Round(wynik) + " Rekord: " + PlayerPrefs.GetInt("Highscore");
-			if((wynik > PlayerPrefs.GetInt("Highscore")) && (highscore == false))
-			{
-				newRecord.SetTrigger ("NewRecord");
-				highscore = true;
-				ust.odegrajDzwiek (highscoreDzwiek);
-                Wynik.color=Color.green;
+	{
+		if (!ust.paused) {
+			if (PlayerPrefs.GetInt ("SuperPower") == 1) {
+				SuperPower ();
 			}
-            HandleMovement();
-        }
 
+			if (PlayerPrefs.GetInt ("DoubleJump") == 1) {
+				doubleJumpText.fillAmount = (float)jumps / 2;
+			}
 
+			if (myRigidbody.velocity.y < 0) {
+				gAnim.SetBool ("JumpDown", true);
+				gAnim.SetBool ("JumpUp", false);
+			}
+
+			spawnerpos = spawner.transform.position;
+
+			wys_pos = myRigidbody.position.y; // aktualna wysokość postaci
+
+			if (potk >= 3) {  // jeśli gracz potknoł się 3 razy uruchamia się QTE
+				Wynik2.SetActive (false);
+				QTE ();
+				spawnerpos.y = -5f;
+				spawner.transform.position = spawnerpos;
+				if ((zlapany) && (!game_over)) {  // jeśli gracz przegrał QTE wyświetla się ekran Game Over z wynikiem i przyciskami menu i restartu
+					int newPoints = PlayerPrefs.GetInt ("Points") + (int)wynik;	// Sumowanie wyniku do ogólnej liczby punktów
+					PlayerPrefs.SetInt ("Points", newPoints);	// Ustawianie nowej liczby punktów
+
+					Pasek_QTE.SetActive (false);
+					game_over = true;
+					ust.odegrajDzwiek (gameoverDzwiek);
+					if (highscore == true) {
+						PlayerPrefs.SetInt ("Highscore", (int)wynik);
+						highscore = false;
+					}
+					Wynik2.SetActive (false);
+					//Pasek_QTE.SetActive(false);
+					Wynik_game_over.text = "Twój wynik : " + Mathf.Round (wynik);
+					Naj_Wynik.text = "Najlepszy wynik : " + PlayerPrefs.GetInt ("Highscore");
+					GameCanvas.SetActive (false);
+					Game_Over.SetActive (true);
+                
+				}
+
+				if (wolny) { // jeśli gracz wygrał QTE biegnie dalej a tłum się odsuwa
+					tlum.AddForce (new Vector2 (-300, 0) * 40 * Time.deltaTime); //odsunięcie tłumu
+					Q.SetActive (false);    //pasek QTE jest niewidoczny  
+					Tap.SetActive (false);
+					Wynik2.SetActive (true);
+					potk = 0;
+					wolny = false;
+					pasek.fillAmount = 0.5f;
+					QTE_speed = QTE_speed + 0.01f;
+					spawnerpos.y = 0f;
+					spawner.transform.position = spawnerpos;
+				}
+			} else {
+				wynik = Vector3.Distance (gracz.position, punkt_startowy.position); // wynik jest to dystans jaki pokonał gracz od punktu startowego
+				//Wynik.text = "" + Mathf.Round(wynik);  // wyświetla zaokrąglony wynik
+				Wynik.text = "Wynik: " + Mathf.Round (wynik) + " Rekord: " + PlayerPrefs.GetInt ("Highscore");
+				if ((wynik > PlayerPrefs.GetInt ("Highscore")) && (highscore == false)) {
+					newRecord.SetTrigger ("NewRecord");
+					highscore = true;
+					ust.odegrajDzwiek (highscoreDzwiek);
+					Wynik.color = Color.green;
+				}
+				HandleMovement ();
+			}
+
+		}
     }
 
     private void HandleMovement()	// Funkcja odpowiedzialna za ruch w prawo i wykonywanie skoku
@@ -232,29 +224,25 @@ public class PlayerMovement : MonoBehaviour
 
 	void OnTriggerEnter2D(Collider2D target)	// Sprawdzanie, czy przed graczem jest przeszkoda
 	{
-		if(PlayerPrefs.GetInt("FirstTime") == 1)
+		if(PlayerPrefs.GetInt("Tips") == 1)
 		{
 			if(target.gameObject.tag == "Przeszkoda")
 			{
-				Tap.SetActive(true);
-			}
-		}
-	}
-
-	void OnTriggerExit2D(Collider2D target)		// Sprawdzanie, czy przed graczem nie ma już przeszkody
-	{
-		if (PlayerPrefs.GetInt ("FirstTime") == 1) 
-		{
-			if (target.gameObject.tag == "Przeszkoda") 
-			{
-				Tap.SetActive (false);
+				foreach (Transform child in gameObject.transform) 
+				{
+					if(child.gameObject.activeSelf == true) tips.tips (2);
+					child.gameObject.SetActive (false);
+				}
 			}
 		}
 	}
 
     void QTE()
     {
-
+		if (PlayerPrefs.GetInt ("Tips") == 1) 
+		{
+			tips.tips (3);
+		}
         Q.SetActive(true); //włącza się QTE
         Tap.SetActive(true);
         pasek.fillAmount = pasek.fillAmount + QTE_speed * Time.deltaTime;  // pasek wypełania się na korzyść tłumu
