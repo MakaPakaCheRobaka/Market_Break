@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D myRigidbody;
     private Rigidbody2D tlum;
+	public Transform tlum2;
     public GameObject Q; //QTE 
 	public GameObject GameCanvas;
     public GameObject Game_Over; //Ekran Game Over
@@ -63,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
         myRigidbody = GetComponent<Rigidbody2D>();
         tlum = GameObject.FindGameObjectWithTag("Tlum").GetComponent<Rigidbody2D>();
         skok_poz_str = myRigidbody.position.y;
-        potk = 0;                       // liczba potknięć = 0
+        potk = 3;                       // liczba potknięć = 0
         pasek.fillAmount = 0.50f;       // ustawienie paska w połowie
         Q.SetActive(false);             //pasek QTE jest niewidoczny
         Tap.SetActive(false);           //Tap jest niewidoczny
@@ -118,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
 
 			wys_pos = myRigidbody.position.y; // aktualna wysokość postaci
 
-			if (potk >= 3) {  // jeśli gracz potknoł się 3 razy uruchamia się QTE
+			if (potk == 0) {  // jeśli gracz potknoł się 3 razy uruchamia się QTE
 				Wynik2.SetActive (false);
 				QTE ();
 				spawnerpos.y = -5f;
@@ -148,7 +149,7 @@ public class PlayerMovement : MonoBehaviour
 					Q.SetActive (false);    //pasek QTE jest niewidoczny  
 					Tap.SetActive (false);
 					Wynik2.SetActive (true);
-					potk = 0;
+					potk = 3;
 					wolny = false;
 					pasek.fillAmount = 0.5f;
 					QTE_speed = QTE_speed + 0.01f;
@@ -211,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
 			if (!superPowerIsActive) 
 			{
 				tlum.AddForce (new Vector2 (150, 0) * 40 * Time.deltaTime);
-				potk++;                                                     // zwiększam liczbe wpadnięć na przeszkodę
+				potk--;                                                     // zwiększam liczbe wpadnięć na przeszkodę
 				//tlum.Translate (Vector2.right * Time.deltaTime * 10);
 			} 
 			else 
@@ -228,21 +229,14 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if(target.gameObject.tag == "Przeszkoda")
 			{
-				foreach (Transform child in gameObject.transform) 
-				{
-					if(child.gameObject.activeSelf == true) tips.tips (2);
-					child.gameObject.SetActive (false);
-				}
+				tips.tips (2);
 			}
 		}
 	}
 
     void QTE()
     {
-		if (PlayerPrefs.GetInt ("Tips") == 1) 
-		{
-			tips.tips (3);
-		}
+		tips.tips (3);
         Q.SetActive(true); //włącza się QTE
         Tap.SetActive(true);
         pasek.fillAmount = pasek.fillAmount + QTE_speed * Time.deltaTime;  // pasek wypełania się na korzyść tłumu
