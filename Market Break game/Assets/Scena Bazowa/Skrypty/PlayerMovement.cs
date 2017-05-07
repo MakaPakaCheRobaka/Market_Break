@@ -99,7 +99,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 		if (!ust.movementPause)	//	Sprawdzanie, czy gra nie została spauzowana 
 		{
-			tlum.position = Vector2.Lerp(tlum.position, new Vector2 (transform.position.x - potk - 1, tlum.position.y), tlumSpeed * Time.deltaTime);
+			tlum.position = Vector2.Lerp(tlum.position, new Vector2 (transform.position.x - potk - 2, tlum.position.y), tlumSpeed * Time.deltaTime);
 
 			if (PlayerPrefs.GetInt ("SuperPower") == 1)	//	Sprawdzanie, czy ulepszenie Super Mocy jest aktywne 
 			{

@@ -36,7 +36,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4313993271954848}
   - component: {fileID: 212313665890940854}
-  - component: {fileID: 61012548989376598}
+  - component: {fileID: 61030813286042312}
   m_Layer: 10
   m_Name: Przeszkoda
   m_TagString: Przeszkoda
@@ -64,14 +64,14 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1761947723255264}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -32.70784, y: -13.334206, z: 0}
+  m_LocalPosition: {x: 0.15721607, y: -11.180744, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4313993271954848}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &61012548989376598
+--- !u!61 &61030813286042312
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -82,9 +82,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0.22940826, y: -1.1178074}
+  m_Offset: {x: 0.09, y: -0.24}
   serializedVersion: 2
-  m_Size: {x: 2.0514116, y: 2.0471296}
+  m_Size: {x: 1.47, y: 1.64}
 --- !u!114 &114193907221441376
 MonoBehaviour:
   m_ObjectHideFlags: 1

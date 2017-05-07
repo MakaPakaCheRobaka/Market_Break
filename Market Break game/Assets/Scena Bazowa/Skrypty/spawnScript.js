@@ -33,7 +33,7 @@ if(!ust.spawnerPause)
     var x2 = transform.position.x + rd.bounds.size.x/2;
 
     // Randomly pick a point within the spawn object
-    var spawnPoint = Vector2(Random.Range(x1, x2), transform.position.y-2.2);
+    var spawnPoint = Vector2(Random.Range(x1, x2), transform.position.y-1);
 
     // Create an enemy at the 'spawnPoint' position
     Instantiate(enemy, spawnPoint, Quaternion.identity);
@@ -54,7 +54,7 @@ if(!ust.spawnerPause)
     var x2 = transform.position.x + rd.bounds.size.x/2;
 
     // Randomly pick a point within the spawn object
-    var spawnPoint = Vector2(Random.Range(x1, x2), transform.position.y-2.2);
+    var spawnPoint = Vector2(Random.Range(x1, x2), transform.position.y-2.4);
 
     // Create an enemy at the 'spawnPoint' position
     Instantiate(enemy2, spawnPoint, Quaternion.identity);
@@ -75,7 +75,7 @@ if(!ust.spawnerPause)
     var x2 = transform.position.x + rd.bounds.size.x/2;
 
     // Randomly pick a point within the spawn object
-    var spawnPoint = Vector2(Random.Range(x1, x2), transform.position.y-2.2);
+    var spawnPoint = Vector2(Random.Range(x1, x2), transform.position.y-1.2);
 
     // Create an enemy at the 'spawnPoint' position
     Instantiate(enemy3, spawnPoint, Quaternion.identity);
