@@ -49,10 +49,12 @@ public class PlayerMovement : MonoBehaviour
 	int jumps = 0; // Ilość dostępnych skoków
 	int superCharge = 0; // Poziom naładowania super mocy
 	bool superPowerIsActive = false;
+	Animator gAnim;
 
     // Use this for initialization
     void Start()
     {
+		gAnim = GetComponent<Animator> ();
 		newRecord = GameObject.Find("NewRecordText").GetComponent<Animator> ();
 		game_over = false;
         ust = GameObject.Find("Ustawienia").GetComponent<Ustawienia>();
@@ -71,7 +73,7 @@ public class PlayerMovement : MonoBehaviour
         ust.wlaczMuzyke(muzyka);
 		if (PlayerPrefs.GetInt ("DoubleJump") == 0) 
 		{
-			doubleJumpText.gameObject.SetActive (false);
+			doubleJumpText.transform.parent.gameObject.SetActive (false);
 		}
 		if (PlayerPrefs.GetInt ("SuperPower") == 0) 
 		{
@@ -85,7 +87,6 @@ public class PlayerMovement : MonoBehaviour
 		{
 			superCharge++;
 			superPowerText.fillAmount = (float)superCharge / 1000;
-			Debug.Log (superPowerText.fillAmount);
 		} 
 		else if(superCharge == 1000)
 		{
@@ -97,10 +98,20 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-
 		if (PlayerPrefs.GetInt ("SuperPower") == 1) 
 		{
 			SuperPower ();
+		}
+
+		if (PlayerPrefs.GetInt ("DoubleJump") == 1) 
+		{
+			doubleJumpText.fillAmount = (float)jumps / 2;
+		}
+
+		if (myRigidbody.velocity.y < 0) 
+		{
+			gAnim.SetBool ("JumpDown", true);
+			gAnim.SetBool ("JumpUp", false);
 		}
 
         spawnerpos = spawner.transform.position;
@@ -174,6 +185,8 @@ public class PlayerMovement : MonoBehaviour
 			if (jumps > 0) 
 			{
 				jumps--;
+				gAnim.SetBool ("JumpUp", true);
+				gAnim.SetBool ("JumpDown", false);
 				ust.odegrajDzwiek(skokDzwiek);
 				myRigidbody.velocity = new Vector2 (myRigidbody.velocity.x, jumpSpeed);
 			}
@@ -184,8 +197,9 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D target)
     {
-		if (target.gameObject.tag == "Ground") // Odnawianie ilości skoków przy zetknięciu z ziemią
+		if (target.gameObject.tag == "Ground") // Odnawianie ilości skoków przy zetknięciu z ziemią i włączenie animacji biegu
 		{
+			gAnim.SetBool ("JumpDown", false);
 			if ((PlayerPrefs.GetInt ("DoubleJump") == 1) && (jumps < 2)) 
 			{
 				jumps = 2;

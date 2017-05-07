@@ -1002,7 +1002,7 @@ GameObject:
   - component: {fileID: 307748374}
   - component: {fileID: 307748373}
   m_Layer: 5
-  m_Name: DoubleJumpFill
+  m_Name: DoubleJumpTextFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1046,7 +1046,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: d842d3707ee75314fa6a6a00a09d130c, type: 3}
-  m_Type: 0
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1284,7 +1284,7 @@ GameObject:
   - component: {fileID: 575549814}
   m_Layer: 0
   m_Name: 1
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3429,6 +3429,7 @@ GameObject:
   - component: {fileID: 1841828997}
   - component: {fileID: 1841828998}
   - component: {fileID: 1841828999}
+  - component: {fileID: 1841829000}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -3661,7 +3662,7 @@ MonoBehaviour:
   Wynik_game_over: {fileID: 1923512144}
   Naj_Wynik: {fileID: 2110889055}
   superPowerText: {fileID: 2009270633}
-  doubleJumpText: {fileID: 2076828396}
+  doubleJumpText: {fileID: 307748373}
   Wynik2: {fileID: 1436419813}
   jumpSpeed: 23
   moveSpeed: 15
@@ -3716,6 +3717,23 @@ BoxCollider2D:
   m_Offset: {x: 9.655612, y: -0.93168193}
   serializedVersion: 2
   m_Size: {x: 15.999463, y: 3.2947273}
+--- !u!95 &1841829000
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1841828991}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a189e62d6518a0c4e8e1281810909a12, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &1859036495
 GameObject:
   m_ObjectHideFlags: 0
