@@ -38,14 +38,14 @@ public class Tips : MonoBehaviour {
 		}
 	}
 
-	public void Pause()
+	public void tipsPause()
 	{
-		ust.paused = true;	// Pauzowanie gry
+		ust.globalPause (true);
 	}
 
-	public void UnPause()
+	public void tipsUnpause()
 	{
-		ust.paused = false;	// Wznowienie gry
+		ust.globalPause (false);
 	}
 		
 	void Update () 

@@ -403,7 +403,7 @@ AnimationClip:
   m_IsEmpty: 0
   m_Events:
   - time: 0
-    functionName: Pause
+    functionName: tipsPause
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

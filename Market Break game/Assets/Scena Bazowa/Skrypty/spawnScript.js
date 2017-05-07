@@ -7,8 +7,9 @@ public var enemy3 : GameObject;
 public var spawnTime : float = 2;
 public var spawnTime2 : float = 2;
 public var spawnTime3 : float = 2;
+public var ust : Ustawienia;
 
-function Start() {
+function Awake() {
     // Call the 'addEnemy' function in 0 second
     // Then every 'spawnTime' seconds
     InvokeRepeating("addEnemy", 0, spawnTime);
@@ -19,6 +20,8 @@ function Start() {
 
 // New function to spawn an enemy
 function addEnemy() {
+if(!ust.spawnerPause)
+{
     // Get the renderer component of the spawn object
     var rd = GetComponent.<Renderer>();
 
@@ -34,9 +37,12 @@ function addEnemy() {
 
     // Create an enemy at the 'spawnPoint' position
     Instantiate(enemy, spawnPoint, Quaternion.identity);
+}
 } 
 
 function addEnemy2() {
+if(!ust.spawnerPause)
+{
     // Get the renderer component of the spawn object
     var rd = GetComponent.<Renderer>();
 
@@ -52,9 +58,12 @@ function addEnemy2() {
 
     // Create an enemy at the 'spawnPoint' position
     Instantiate(enemy2, spawnPoint, Quaternion.identity);
+}
 } 
 
 function addEnemy3() {
+if(!ust.spawnerPause)
+{
     // Get the renderer component of the spawn object
     var rd = GetComponent.<Renderer>();
 
@@ -70,4 +79,5 @@ function addEnemy3() {
 
     // Create an enemy at the 'spawnPoint' position
     Instantiate(enemy3, spawnPoint, Quaternion.identity);
+}
 } 

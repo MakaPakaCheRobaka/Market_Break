@@ -427,7 +427,7 @@ AnimationClip:
   m_IsEmpty: 0
   m_Events:
   - time: 0.53333336
-    functionName: UnPause
+    functionName: tipsUnpause
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

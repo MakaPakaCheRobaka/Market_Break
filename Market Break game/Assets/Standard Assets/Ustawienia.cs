@@ -5,7 +5,9 @@ using UnityEngine;
 public class Ustawienia : MonoBehaviour
 {
     public AudioSource source;
-	public bool paused = false;
+	public bool movementPause = false;
+	public bool spawnerPause = false;
+	public bool QTEPause = false;
 
     void Awake()
     {
@@ -31,6 +33,22 @@ public class Ustawienia : MonoBehaviour
 			PlayerPrefs.SetInt ("Tips", 1);
 		}
     }
+
+	public void globalPause(bool pause)
+	{
+		if (pause) 
+		{
+			movementPause = true;
+			spawnerPause = true;
+			QTEPause = true;
+		} 
+		else 
+		{
+			movementPause = false;
+			spawnerPause = false;
+			QTEPause = false;
+		}
+	}
 
 	public void resetSound() // Funkcja odpowiedzialna za resetowanie komponentu AudioSource
 	{

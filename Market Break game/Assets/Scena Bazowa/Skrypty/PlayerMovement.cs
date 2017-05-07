@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 	public AudioClip skokDzwiek; // dźwięk skoku
 	public AudioClip highscoreDzwiek; // dźwięk nowego rekordu
 	public AudioClip gameoverDzwiek; // dźwięk przegranej gry
-    Ustawienia ust; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
+    public Ustawienia ust; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
     public float QTE_speed; // szybkość napełniania się paska QTE na korzyść tłumu
 	bool highscore = false;
 	bool game_over;
@@ -54,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
 		gAnim = GetComponent<Animator> ();
 		newRecord = GameObject.Find("NewRecordText").GetComponent<Animator> ();
 		game_over = false;
-        ust = GameObject.Find("Ustawienia").GetComponent<Ustawienia>();
         myRigidbody = GetComponent<Rigidbody2D>();
         tlum = GameObject.FindGameObjectWithTag("Tlum").GetComponent<Transform>();
         pasek.fillAmount = 0.50f;       // ustawienie paska w połowie
@@ -93,7 +92,12 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
 	{
-		if (!ust.paused)	//	Sprawdzanie, czy gra nie została spauzowana 
+		if (myRigidbody.velocity.y < 0) //	Włączanie odpowiedniej animacji skoku na podstawie kierunku lotu
+		{
+			gAnim.SetBool ("JumpDown", true);
+			gAnim.SetBool ("JumpUp", false);
+		}
+		if (!ust.movementPause)	//	Sprawdzanie, czy gra nie została spauzowana 
 		{
 			tlum.position = Vector2.Lerp(tlum.position, new Vector2 (transform.position.x - potk - 1, tlum.position.y), tlumSpeed * Time.deltaTime);
 
@@ -105,12 +109,6 @@ public class PlayerMovement : MonoBehaviour
 			if (PlayerPrefs.GetInt ("DoubleJump") == 1) //	Poniżej wypełnianie ikony podwójnego skoku na podstawie ilości dostępnych skoków
 			{
 				doubleJumpText.fillAmount = (float)jumps / 2;
-			}
-
-			if (myRigidbody.velocity.y < 0) //	Włączanie odpowiedniej animacji skoku na podstawie kierunku lotu
-			{
-				gAnim.SetBool ("JumpDown", true);
-				gAnim.SetBool ("JumpUp", false);
 			}
 
 			spawnerpos = spawner.transform.position;
@@ -142,6 +140,7 @@ public class PlayerMovement : MonoBehaviour
 
 				if (wolny) // Jeśli gracz wygrał QTE biegnie dalej a tłum się odsuwa
 				{ 
+					ust.spawnerPause = false;
 					Q.SetActive (false);    //Pasek QTE jest niewidoczny  
 					Tap.SetActive (false);
 					Wynik.gameObject.SetActive (true);
@@ -234,23 +233,27 @@ public class PlayerMovement : MonoBehaviour
     void QTE()
     {
 		tips.tips (3);
-        Q.SetActive(true); //Włącza się QTE
-        Tap.SetActive(true);
-        pasek.fillAmount = pasek.fillAmount + QTE_speed * Time.deltaTime;  // Pasek wypełania się na korzyść tłumu
+		if (!ust.QTEPause) 
+		{
+			ust.spawnerPause = true;
+			Q.SetActive (true); //Włącza się QTE
+			Tap.SetActive (true);
+			pasek.fillAmount = pasek.fillAmount + QTE_speed * Time.deltaTime;  // Pasek wypełania się na korzyść tłumu
 
-        if (Input.GetMouseButtonDown(0)) //Gracz musi szybko klikać aby się uwolnić od tłumu
-        {
-            pasek.fillAmount = pasek.fillAmount - 0.055f;
-        }
+			if (Input.GetMouseButtonDown (0)) 
+			{ //Gracz musi szybko klikać aby się uwolnić od tłumu
+				pasek.fillAmount = pasek.fillAmount - 0.055f;
+			}
 
-        if (pasek.fillAmount < 0.01)
-        {
-            wolny = true;
-        }
+			if (pasek.fillAmount < 0.01) 
+			{
+				wolny = true;
+			}
 
-        if (pasek.fillAmount >= 1)
-        {
-            zlapany = true;
-        }
+			if (pasek.fillAmount >= 1) 
+			{
+				zlapany = true;
+			}
+		}
     }
 }
