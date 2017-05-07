@@ -10,10 +10,12 @@ public class Game_over_menu : MonoBehaviour
 	public GameObject gameOverCanvas;
 	public GameObject upgradeCanvas;
 	public Tips tips;
+	public Text textTips;
 
 	void Start()
 	{
 		tips.tips (4);
+		if (PlayerPrefs.GetInt("Tips") == 0) textTips.text = "WSKAZÓWKI: OFF";
 	}
 
 	void resetSound()
@@ -33,6 +35,20 @@ public class Game_over_menu : MonoBehaviour
 		resetSound ();
         SceneManager.LoadScene("scena");
     }
+
+	public void GameOverTips()
+	{
+		if (PlayerPrefs.GetInt("Tips") == 1) 
+		{
+			PlayerPrefs.SetInt("Tips", 0);
+			textTips.text = "WSKAZÓWKI: OFF";
+		}
+		else 
+		{
+			PlayerPrefs.SetInt("Tips", 1);
+			textTips.text = "WSKAZÓWKI: ON";
+		}
+	}
 
 	public void GameOverUpgrade()
 	{
