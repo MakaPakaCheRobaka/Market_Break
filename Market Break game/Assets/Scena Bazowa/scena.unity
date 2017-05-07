@@ -540,7 +540,6 @@ GameObject:
   - component: {fileID: 248741116}
   - component: {fileID: 248741117}
   - component: {fileID: 248741118}
-  - component: {fileID: 248741119}
   - component: {fileID: 248741120}
   - component: {fileID: 248741121}
   m_Layer: 9
@@ -557,7 +556,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 248741114}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.98, y: -0.08, z: 0}
+  m_LocalPosition: {x: -1.98, y: -0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1840728842}
@@ -593,7 +592,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: b775c2be3ff5e8240a24bc6c2afa4426, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -859,26 +858,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   xMax: 1.44
   xMin: -1.05
---- !u!50 &248741119
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 248741114}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!82 &248741120
 AudioSource:
   m_ObjectHideFlags: 0
@@ -898,7 +877,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 8.323498
   MaxDistance: 10.093992
   Pan2D: 0
   rolloffMode: 2
@@ -909,13 +888,13 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 2
-      time: 0.22470278
+      time: 0.59796184
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
     - serializedVersion: 2
-      time: 0.7380953
+      time: 0.86622894
       value: 0
       inSlope: -0.2125272
       outSlope: -0.2125272
@@ -965,7 +944,7 @@ BoxCollider2D:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 248741114}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -3921,7 +3900,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: f15902c4782193f409af4b89c3cc9890, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4070,7 +4049,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87045c9a77bd4c6439fefb4920787656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tlum2: {fileID: 1840728842}
   Q: {fileID: 2062161102}
   GameCanvas: {fileID: 872180802}
   Game_Over: {fileID: 1472088700}
@@ -4078,19 +4056,15 @@ MonoBehaviour:
   Pasek_QTE: {fileID: 1400000512}
   Tap: {fileID: 934077319}
   pasek: {fileID: 565879710}
-  gracz: {fileID: 954813757}
   punkt_startowy: {fileID: 248741115}
   Wynik: {fileID: 1436419815}
   Wynik_game_over: {fileID: 1923512144}
   Naj_Wynik: {fileID: 2110889055}
   superPowerText: {fileID: 2009270633}
   doubleJumpText: {fileID: 307748373}
-  Wynik2: {fileID: 1436419813}
   jumpSpeed: 23
   moveSpeed: 15
-  wys_pos: 0
-  skok_poz_str: 0
-  potk: 0
+  potk: 3
   wolny: 0
   zlapany: 0
   wynik: 0
@@ -4099,12 +4073,12 @@ MonoBehaviour:
   skokDzwiek: {fileID: 8300000, guid: b864cea3ceb4da34797f38c2b0898161, type: 3}
   highscoreDzwiek: {fileID: 8300000, guid: 4dde716bc1f14ce4cb178750b86be3d2, type: 3}
   gameoverDzwiek: {fileID: 8300000, guid: 4784a33f73f1df349bbf16242079d82f, type: 3}
-  tlumDzwiek: {fileID: 0}
   QTE_speed: 0
   spawnerpos: {x: 0, y: 0, z: 0}
   spawner: {fileID: 2143999687}
   newRecord: {fileID: 0}
   tips: {fileID: 649895944}
+  tlumSpeed: 1
 --- !u!81 &1841828997
 AudioListener:
   m_ObjectHideFlags: 0

@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class Tips : MonoBehaviour {
 
-	Text tip;
-	Animator fAnim;
-	AnimatorStateInfo currentState;
-	public bool isWorking = false;
-	Ustawienia ust;
+	Text tip;	// Tekst obecnie wyświetlanej wskazówki
+	Animator fAnim;	// Animacja wygaszania ekranu i wyświetlania tekstu
+	public bool isWorking = false;	// Sprawdzanie, czy jest aktualnie wyświetlana wskazówka
+	Ustawienia ust;	// Obiekt z ustawieniami
 
-	List<int> idList = new List<int> ();
+	List<int> idList = new List<int> ();	// Lista identyfikatorów wskazówek do wyświetlenia
 
+	//Poniżej struktura zawierająca teksty wskazówek i zmienną sprawdzającą, czy dana wskazówka została już użyta
 	[System.Serializable]
 	public struct tipsTextStruct
 	{
@@ -20,10 +20,9 @@ public class Tips : MonoBehaviour {
 	public string tipsText;
 	public bool wasUsed;
 	}
+		
+	public tipsTextStruct[] tipsTexts;	//Tablica powyższych struktur
 
-	public tipsTextStruct[] tipsTexts;
-
-	// Use this for initialization
 	void Start () 
 	{
 		ust = GameObject.Find ("Ustawienia").GetComponent<Ustawienia> ();
@@ -33,22 +32,28 @@ public class Tips : MonoBehaviour {
 		
 	public void tips (int id)
 	{
-		idList.Add (id);
+		if(PlayerPrefs.GetInt("Tips") == 1)
+		{
+		idList.Add (id);	// Dodawanie id do listy oczekujących wskazówek
+		}
 	}
 
 	public void Pause()
 	{
-		ust.paused = true;
+		ust.paused = true;	// Pauzowanie gry
 	}
 
 	public void UnPause()
 	{
-		ust.paused = false;
+		ust.paused = false;	// Wznowienie gry
 	}
-
-	// Update is called once per frame
+		
 	void Update () 
 	{
+		/*Poniżej sprawdzanie, czy są wskazówki do wyświetlenia, czy żadna 
+		wskazówka nie jest obecnie wyświetlana i czy pierwsza wskazówka na liście nie została już użyta.
+		W warunku włączana jest animacja wskazówki, ustawiany jest tekst wskazówki, wskazówka zostaje uznana
+		jako już użyta i później zostaje usunięta z listy identyfikatorów.*/
 		if ((idList.Count > 0) && (!isWorking) && (tipsTexts [idList [0]].wasUsed == false)) 
 		{
 			isWorking = true;
@@ -56,12 +61,12 @@ public class Tips : MonoBehaviour {
 			tip.text = tipsTexts [idList [0]].tipsText;
 			tipsTexts [idList [0]].wasUsed = true;
 			idList.RemoveAt (0);
-		} 
-		else if (idList.Count > 0) 
-		{
-			if(tipsTexts [idList [0]].wasUsed == false) idList.RemoveAt (0);
 		}
-		if (isWorking) 
+		else if (idList.Count > 0) //Usunięcie wskazówki z listy w przypadku, gdy została już użyta wcześniej 
+		{
+			if(tipsTexts [idList [0]].wasUsed == true) idList.RemoveAt (0);
+		}
+		if (isWorking) //Pominięcie wskazówki
 		{
 			if (Input.GetMouseButtonDown (0)) 
 			{

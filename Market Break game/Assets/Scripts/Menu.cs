@@ -23,7 +23,7 @@ public class Menu : MonoBehaviour {
 		tips = GameObject.Find ("Fade").GetComponent<Tips> ();
 		ust.wlaczMuzyke (menuMusic);
 
-		if (!PlayerPrefs.HasKey ("Points")) 
+		if (!PlayerPrefs.HasKey ("Points")) // Ustawianie zmiennej odpowiedzialnej za ogólne punkty
 		{
 			PlayerPrefs.SetInt ("Points", 0);
 		}
@@ -44,12 +44,10 @@ public class Menu : MonoBehaviour {
 			textMuzyka.text = "MUZYKA: OFF";
 		}
 
-		if (PlayerPrefs.GetInt ("Tips") == 1) 
-		{
-			tips.tips (0);
-			tips.tips (1);
-		} 
-		else textTips.text = "WSKAZÓWKI: OFF";
+		//	Poniżej dodanie dwóch wskazówek do listy
+		tips.tips (0);
+		tips.tips (1);
+		if (PlayerPrefs.GetInt("Tips") == 0) textTips.text = "WSKAZÓWKI: OFF"; // Ustawianie tekstu na przycisku wskazówek
 	}
 
 	public void pressStart() // Funkcja odpowiedzialna za kliknięcie przycisku start
@@ -88,7 +86,7 @@ public class Menu : MonoBehaviour {
 		}
 	}
 
-	public void pressTips()
+	public void pressTips()	//	Funkcja odpowiedzialna za kliknięcie przycisku wskazówek
 	{
 		if (PlayerPrefs.GetInt("Tips") == 1) 
 		{
