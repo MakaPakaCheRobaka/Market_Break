@@ -25,9 +25,9 @@ public class PlayerMovement : MonoBehaviour
 	public Image doubleJumpText;
     public float jumpSpeed;	// Moc skoku
     public float moveSpeed;	// Prędkość postaci
-    public int potk; // zmienna która przechowuje ile razy gracz wpadł na przeszkodę
-    public bool wolny = false; // zmienna która przechowuje info czy gracz się uwolnił przed tłumem
-    public bool zlapany = false; // zmienna która przechowuje info czy tłum złąpał gracza
+    int potk = 3; // zmienna która przechowuje ile razy gracz wpadł na przeszkodę
+    bool wolny = false; // zmienna która przechowuje info czy gracz się uwolnił przed tłumem
+    bool zlapany = false; // zmienna która przechowuje info czy tłum złąpał gracza
     public float wynik;           // zmienna przechowuje info o wyniku gracza
     public AudioClip uderzenieDzwiek; // dźwięk uderzenie w przeszkodę
     public AudioClip muzyka; // dźwięk muzyki
@@ -39,7 +39,6 @@ public class PlayerMovement : MonoBehaviour
 	bool highscore = false;
 	[HideInInspector]
 	public bool game_over;
-    public  Vector3 spawnerpos;
     public GameObject spawner;
 	public Animator newRecord;	// Animacja pobicia rekordu
 	int jumps = 0; // Ilość dostępnych skoków
@@ -127,15 +126,11 @@ public class PlayerMovement : MonoBehaviour
 			{
 				doubleJumpText.fillAmount = (float)jumps / 2;
 			}
-
-			spawnerpos = spawner.transform.position;
-
+				
 			if (potk == 0) // Jeśli gracz potknął się 3 razy uruchamia się QTE
 			{  
 				Wynik.gameObject.SetActive (false);
 				QTE ();
-				spawnerpos.y = -5f;
-				spawner.transform.position = spawnerpos;
 				if ((zlapany) && (!game_over)) // Jeśli gracz przegrał QTE wyświetla się ekran Game Over z wynikiem i przyciskami menu i restartu
 				{  
 					int newPoints = PlayerPrefs.GetInt ("Points") + (int)wynik;	// Sumowanie wyniku do ogólnej liczby punktów
@@ -164,9 +159,7 @@ public class PlayerMovement : MonoBehaviour
 					potk = 3;
 					wolny = false;
 					pasek.fillAmount = 0.5f;
-					QTE_speed = QTE_speed + 0.01f;
-					spawnerpos.y = 0f;
-					spawner.transform.position = spawnerpos;
+					QTE_speed += 0.07f;
 				}
 			} 
 			else 
