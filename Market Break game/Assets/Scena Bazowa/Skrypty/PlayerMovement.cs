@@ -47,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
 	Animator gAnim;	//	Animacja postaci
 	public Tips tips;
 	public float tlumSpeed;
+	Vector2 savedVelocity;
 
     // Use this for initialization
     void Start()
@@ -74,6 +75,21 @@ public class PlayerMovement : MonoBehaviour
 			superPowerText.transform.parent.gameObject.SetActive (false);
 		}
     }
+
+	public void pauseVelocity(bool onOff)
+	{
+		if (onOff) 
+		{
+			savedVelocity = myRigidbody.velocity;
+			myRigidbody.isKinematic = true;
+			myRigidbody.velocity = Vector2.zero;
+		} 
+		else 
+		{
+			myRigidbody.isKinematic = false;
+			myRigidbody.velocity = savedVelocity;
+		}
+	}
 
 	void SuperPower()
 	{

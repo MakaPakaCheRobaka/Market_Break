@@ -31,7 +31,8 @@ public class Pause : MonoBehaviour {
 
 	public void pressContinue()
 	{
-		Input.ResetInputAxes();
+		PlayerMovement pMovement = GameObject.FindWithTag ("Player").GetComponent<PlayerMovement> ();
+		pMovement.pauseVelocity (false);
 		ust.globalPause (false);
 		gameCanvas.SetActive (true);
 		transform.parent.gameObject.SetActive (false);

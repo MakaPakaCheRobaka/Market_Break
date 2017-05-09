@@ -10,7 +10,8 @@ public class PauseFromGame : MonoBehaviour {
 
 	public void pressPause()
 	{
-		pRigidbody.velocity = Vector2.zero;
+		PlayerMovement pMovement = GameObject.FindWithTag ("Player").GetComponent<PlayerMovement> ();
+		pMovement.pauseVelocity (true);
 		ust.globalPause (true);
 		pauseCanvas.SetActive (true);
 		transform.parent.gameObject.SetActive (false);
