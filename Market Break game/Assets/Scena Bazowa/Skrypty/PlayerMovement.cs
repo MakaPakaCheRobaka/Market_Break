@@ -37,7 +37,8 @@ public class PlayerMovement : MonoBehaviour
     public Ustawienia ust; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
     public float QTE_speed; // szybkość napełniania się paska QTE na korzyść tłumu
 	bool highscore = false;
-	bool game_over;
+	[HideInInspector]
+	public bool game_over;
     public  Vector3 spawnerpos;
     public GameObject spawner;
 	public Animator newRecord;	// Animacja pobicia rekordu
@@ -219,7 +220,6 @@ public class PlayerMovement : MonoBehaviour
 			
         if (target.gameObject.tag == "Przeszkoda")	//	Dotknięcie przeszkody
         {
-			target.gameObject.AddComponent<Rigidbody2D> ();
 			Rigidbody2D tRigidbody = target.gameObject.GetComponent<Rigidbody2D> ();
 			ust.odegrajDzwiek (uderzenieDzwiek);
 			target.collider.isTrigger = true;
