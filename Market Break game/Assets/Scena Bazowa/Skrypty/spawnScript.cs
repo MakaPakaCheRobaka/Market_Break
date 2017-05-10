@@ -22,7 +22,7 @@ public class spawnScript : MonoBehaviour {
 
 	IEnumerator spawner()
 	{
-		while(!player.game_over)
+		while(!player.isGameOver)
 		{
 			if (!ust.spawnerPause) 
 			{
@@ -47,7 +47,7 @@ public class spawnScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (((int)player.wynik % 100 == 0) && (faster == false)) 
+		if (((int)player.scoreValue % 100 == 0) && (faster == false)) 
 		{
 			Debug.Log ("Faster");
 			faster = true;
@@ -56,7 +56,7 @@ public class spawnScript : MonoBehaviour {
 			if (spawnTimeMax > spawnTimeMaxLimit)
 				spawnTimeMax -= 0.1f;
 		} 
-		else if (!((int)player.wynik % 100 == 0) && (faster == true))
+		else if (!((int)player.scoreValue % 100 == 0) && (faster == true))
 			faster = false;
 	}
 }

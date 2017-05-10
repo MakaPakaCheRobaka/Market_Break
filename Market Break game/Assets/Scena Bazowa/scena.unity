@@ -1731,7 +1731,7 @@ GameObject:
   - component: {fileID: 456940126}
   - component: {fileID: 456940125}
   m_Layer: 0
-  m_Name: UpgradeMenuCanvas
+  m_Name: UpgradeCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2908,7 +2908,7 @@ GameObject:
   - component: {fileID: 934077322}
   - component: {fileID: 934077321}
   m_Layer: 5
-  m_Name: TAP
+  m_Name: TapImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3603,7 +3603,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1400000513}
   m_Layer: 5
-  m_Name: Pasek_QTE
+  m_Name: QTE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3878,7 +3878,7 @@ GameObject:
   - component: {fileID: 1456335010}
   - component: {fileID: 565879710}
   m_Layer: 5
-  m_Name: Pasek
+  m_Name: QTEBarFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3922,7 +3922,7 @@ GameObject:
   - component: {fileID: 1472088703}
   - component: {fileID: 1472088702}
   m_Layer: 5
-  m_Name: GameOverMenuCanvas
+  m_Name: GameOverCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5050,38 +5050,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87045c9a77bd4c6439fefb4920787656, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Q: {fileID: 2062161102}
-  GameCanvas: {fileID: 872180802}
-  Game_Over: {fileID: 1472088700}
-  UpgradeCanvas: {fileID: 456940123}
-  Pasek_QTE: {fileID: 1400000512}
-  Tap: {fileID: 934077319}
-  pasek: {fileID: 565879710}
-  punkt_startowy: {fileID: 248741115}
-  Wynik: {fileID: 1436419815}
-  Wynik_game_over: {fileID: 1923512144}
-  Naj_Wynik: {fileID: 2110889055}
+  jumpPower: 23
+  moveSpeed: 15
+  crowdSpeed: 1.5
+  gameOverCanvas: {fileID: 1472088700}
+  gameCanvas: {fileID: 872180802}
+  upgradeCanvas: {fileID: 456940123}
+  q: {fileID: 1400000512}
+  qteBar: {fileID: 2062161102}
+  qteBarFill: {fileID: 565879710}
+  tap: {fileID: 934077319}
+  qteSpeed: 0.2
+  isGameOver: 0
+  scoreText: {fileID: 1436419815}
+  scoreGameOverText: {fileID: 1923512144}
+  highscoreText: {fileID: 2110889055}
+  newRecordAnim: {fileID: 868073076}
+  scoreValue: 0
+  hitSound: {fileID: 8300000, guid: a240d923ba0ee4a47a21468d5a0aa5a6, type: 3}
+  gameMusic: {fileID: 8300000, guid: 2aaaa19663658d144bb4f68332eec480, type: 3}
+  jumpSound: {fileID: 8300000, guid: b864cea3ceb4da34797f38c2b0898161, type: 3}
+  highscoreSound: {fileID: 8300000, guid: 4dde716bc1f14ce4cb178750b86be3d2, type: 3}
+  gameOverSound: {fileID: 8300000, guid: 4784a33f73f1df349bbf16242079d82f, type: 3}
   superPowerText: {fileID: 2009270633}
   doubleJumpText: {fileID: 307748373}
-  jumpSpeed: 23
-  moveSpeed: 15
-  potk: 3
-  wolny: 0
-  zlapany: 0
-  wynik: 0
-  uderzenieDzwiek: {fileID: 8300000, guid: a240d923ba0ee4a47a21468d5a0aa5a6, type: 3}
-  muzyka: {fileID: 8300000, guid: 2aaaa19663658d144bb4f68332eec480, type: 3}
-  skokDzwiek: {fileID: 8300000, guid: b864cea3ceb4da34797f38c2b0898161, type: 3}
-  highscoreDzwiek: {fileID: 8300000, guid: 4dde716bc1f14ce4cb178750b86be3d2, type: 3}
-  gameoverDzwiek: {fileID: 8300000, guid: 4784a33f73f1df349bbf16242079d82f, type: 3}
-  ust: {fileID: 2020501163}
-  QTE_speed: 0
-  game_over: 0
-  spawnerpos: {x: 0, y: 0, z: 0}
+  settings: {fileID: 2020501163}
   spawner: {fileID: 2143999687}
-  newRecord: {fileID: 0}
   tips: {fileID: 1578526147}
-  tlumSpeed: 1
 --- !u!81 &1841828997
 AudioListener:
   m_ObjectHideFlags: 0
@@ -5968,7 +5963,7 @@ GameObject:
   - component: {fileID: 2062161105}
   - component: {fileID: 2062161104}
   m_Layer: 5
-  m_Name: "Pasek_t\u0142o_2"
+  m_Name: QTEBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
