@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Ulepszenia : MonoBehaviour {
 
 	Text infoText;
-	Text pointsText;
+	public Text pointsText;
 	Text doubleJumpCostText;
 	Button doubleJumpButton;
 	Text superPowerCostText;
@@ -84,8 +84,6 @@ public class Ulepszenia : MonoBehaviour {
 			PlayerPrefs.SetInt ("SuperPower", 0);
 		}
 
-		infoText = GameObject.Find ("InfoText").GetComponent<Text> ();
-		pointsText = GameObject.Find ("PointsText").GetComponent<Text> ();
 		doubleJumpCostText = GameObject.Find ("DoubleJumpCostText").GetComponent<Text> ();
 		doubleJumpButton = GameObject.Find ("DoubleJumpButton").GetComponent<Button> ();
 		superPowerCostText = GameObject.Find ("SuperPowerCostText").GetComponent<Text> ();

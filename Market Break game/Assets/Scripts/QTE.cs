@@ -23,13 +23,20 @@ public class QTE : MonoBehaviour
 	{
 		settings = GameObject.FindWithTag ("Ustawienia").GetComponent<Ustawienia> ();
 		player = GameObject.FindWithTag ("Player").GetComponent<PlayerMovement> ();
+	}
+
+	void OnEnable()
+	{
+		qteGraphics.SetActive(true);
+		gameCanvas.SetActive (false);
 		qteBarFill.fillAmount = 0.50f;       // ustawienie paska w połowie
 	}
 
 	void Update()
 	{
 		bool qteEnd = false; // zmienna która przechowuje info czy tłum złąpał gracza
-		qteGraphics.SetActive(true);
+		//if(!qteGraphics.activeSelf == false) qteGraphics.SetActive(true);
+		//if (!gameCanvas.activeSelf == true) gameCanvas.SetActive (false);
 		if ((!settings.QTEPause) && (!qteEnd)) 
 		{
 			if(!settings.movementPause) settings.movementPause = true;
@@ -72,7 +79,6 @@ public class QTE : MonoBehaviour
 			player.scoreText.gameObject.SetActive (false);
 			scoreGameOverText.text = "Twój wynik : " + (int)player.scoreValue;
 			highscoreText.text = "Najlepszy wynik : " + PlayerPrefs.GetInt ("Highscore");
-			gameCanvas.SetActive (false);
 			gameOverCanvas.SetActive (true);
 		}
 
@@ -82,8 +88,8 @@ public class QTE : MonoBehaviour
 			settings.spawnerPause = false;
 			player.scoreText.gameObject.SetActive (true);
 			player.slip = 3;
-			qteBarFill.fillAmount = 0.5f;
 			qteSpeed += qteSpeedRaise;
+			gameCanvas.SetActive (true);
 		}
 		gameObject.SetActive (false);
 	}
