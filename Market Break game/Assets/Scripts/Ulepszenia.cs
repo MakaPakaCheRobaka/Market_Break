@@ -13,7 +13,6 @@ public class Ulepszenia : MonoBehaviour {
 	Button superPowerButton;
 	public GameObject gameOverCanvas;
 	public GameObject upgradeCanvas;
-	public Tips tips;
 
 	public int doubleJumpCost;
 	public int superPowerCost;
@@ -75,11 +74,6 @@ public class Ulepszenia : MonoBehaviour {
 
 	void Start()
 	{
-		if (PlayerPrefs.GetInt ("Tips") == 1) 
-		{
-			tips.tips (5);
-		}
-
 		if (!PlayerPrefs.HasKey ("DoubleJump")) 
 		{
 			PlayerPrefs.SetInt ("DoubleJump", 0);
@@ -106,7 +100,8 @@ public class Ulepszenia : MonoBehaviour {
 			doubleJumpCostText.text = "Koszt: " + doubleJumpCost;
 		}
 
-		if (PlayerPrefs.GetInt ("SuperPower") == 1) {
+		if (PlayerPrefs.GetInt ("SuperPower") == 1) 
+		{
 			SuperPowerBought ();
 		}
 		else 

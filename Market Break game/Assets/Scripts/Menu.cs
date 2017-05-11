@@ -8,19 +8,15 @@ public class Menu : MonoBehaviour {
 
 	Text textDzwiek;
 	Text textMuzyka;
-	Text textTips;
 	Ustawienia ust;
 	public AudioClip menuMusic;
-	Tips tips;
 
 	// Use this for initialization
 	void Start () 
 	{
 		ust = GameObject.Find ("Ustawienia").GetComponent<Ustawienia> ();
-		textDzwiek = GameObject.Find ("PrzyciskDźwięk").GetComponentInChildren<Text> ();
-		textMuzyka = GameObject.Find ("PrzyciskMuzyka").GetComponentInChildren<Text> ();
-		textTips = GameObject.Find ("PrzyciskWskazówki").GetComponentInChildren<Text> ();
-		tips = GameObject.Find ("Fade").GetComponent<Tips> ();
+		textDzwiek = GameObject.Find ("SoundButton").GetComponentInChildren<Text> ();
+		textMuzyka = GameObject.Find ("MusicButton").GetComponentInChildren<Text> ();
 		ust.wlaczMuzyke (menuMusic);
 
 		if (!PlayerPrefs.HasKey ("Points")) // Ustawianie zmiennej odpowiedzialnej za ogólne punkty
@@ -43,14 +39,6 @@ public class Menu : MonoBehaviour {
 		{
 			textMuzyka.text = "MUZYKA: OFF";
 		}
-
-		if (PlayerPrefs.GetInt ("Tips") == 1)
-			PlayerPrefs.SetInt ("Tips", 0);
-
-		//	Poniżej dodanie dwóch wskazówek do listy
-		tips.tips (0);
-		tips.tips (1);
-		if (PlayerPrefs.GetInt("Tips") == 0) textTips.text = "WSKAZÓWKI: OFF"; // Ustawianie tekstu na przycisku wskazówek
 	}
 
 	public void pressStart() // Funkcja odpowiedzialna za kliknięcie przycisku start
@@ -86,20 +74,6 @@ public class Menu : MonoBehaviour {
 			textMuzyka.text = "MUZYKA: ON";
 			ust.resetSound ();
 			ust.wlaczMuzyke (menuMusic);
-		}
-	}
-
-	public void pressTips()	//	Funkcja odpowiedzialna za kliknięcie przycisku wskazówek
-	{
-		if (PlayerPrefs.GetInt("Tips") == 1) 
-		{
-			PlayerPrefs.SetInt("Tips", 0);
-			textTips.text = "WSKAZÓWKI: OFF";
-		}
-		else 
-		{
-			PlayerPrefs.SetInt("Tips", 1);
-			textTips.text = "WSKAZÓWKI: ON";
 		}
 	}
 

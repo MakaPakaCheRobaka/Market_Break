@@ -8,15 +8,12 @@ public class Pause : MonoBehaviour {
 
 	Ustawienia ust;
 	public GameObject gameCanvas;
-	public Animator fade;
-	public Text textTips;
 
 	// Use this for initialization
 	void Start () {
 		
 		gameCanvas.SetActive (false);
 		ust = GameObject.Find("Ustawienia").GetComponent<Ustawienia> ();
-		if (PlayerPrefs.GetInt("Tips") == 0) textTips.text = "WSKAZÓWKI: OFF";
 	}
 	
 	// Update is called once per frame
@@ -36,20 +33,6 @@ public class Pause : MonoBehaviour {
 		ust.globalPause (false);
 		gameCanvas.SetActive (true);
 		transform.parent.gameObject.SetActive (false);
-	}
-
-	public void pressTips()
-	{
-		if (PlayerPrefs.GetInt("Tips") == 1) 
-		{
-			PlayerPrefs.SetInt("Tips", 0);
-			textTips.text = "WSKAZÓWKI: OFF";
-		}
-		else 
-		{
-			PlayerPrefs.SetInt("Tips", 1);
-			textTips.text = "WSKAZÓWKI: ON";
-		}
 	}
 
 	public void pressMenu()   // po kliknięciu przycisku menu gra ładuje scene z Manu

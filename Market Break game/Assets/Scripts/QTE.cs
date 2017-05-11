@@ -70,7 +70,7 @@ public class QTE : MonoBehaviour
 				player.isHighscore = false;
 			}
 			player.scoreText.gameObject.SetActive (false);
-			scoreGameOverText.text = "Twój wynik : " + Mathf.Round (player.scoreValue);
+			scoreGameOverText.text = "Twój wynik : " + (int)player.scoreValue;
 			highscoreText.text = "Najlepszy wynik : " + PlayerPrefs.GetInt ("Highscore");
 			gameCanvas.SetActive (false);
 			gameOverCanvas.SetActive (true);

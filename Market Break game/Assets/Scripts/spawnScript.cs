@@ -50,7 +50,6 @@ public class spawnScript : MonoBehaviour {
 	{
 		if (((int)player.scoreValue % 100 == 0) && (faster == false)) 
 		{
-			Debug.Log ("Faster");
 			faster = true;
 			if (spawnTimeMin > spawnTimeMinLimit)
 				spawnTimeMin -= 0.1f;

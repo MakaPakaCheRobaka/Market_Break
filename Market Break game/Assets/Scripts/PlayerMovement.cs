@@ -17,28 +17,24 @@ public class PlayerMovement : MonoBehaviour
 	Vector2 savedVelocity;
 
 	//Obiekty tłumu
-	public float crowdSpeed;
 	Transform crowd;
 
 	//Canvasy
 	public GameObject gameOverCanvas; //Ekran Game Over
 	public GameObject gameCanvas;
 	public GameObject upgradeCanvas;
-
-	//Obiekty QTE
-	public GameObject qteObject; //QTE 
+	public GameObject qteCanvas; //QTE 
 
 	//Obiekty wyniku
     public Text scoreText;          //tekst z wynikiem
-    public Text scoreGameOverText;     //tekst z wynikiem w ekranie game over
-    public Text highscoreText;           //tekst z najlepszym wynikiem
+	public Text highscoreText;
 	[HideInInspector]
 	public bool isHighscore = false;
 	public Animator newRecordAnim;	// Animacja pobicia rekordu
 	public float scoreValue;           // zmienna przechowuje info o wyniku gracza
 
 	//Obiekty dźwięków i muzyki
-	public AudioClip hitSound; // dźwięk uderzenie w przeszkodę
+	public AudioClip hitSound; // dźwięk uderzenia w przeszkodę
 	public AudioClip gameMusic; // dźwięk muzyki
 	public AudioClip jumpSound; // dźwięk skoku
 	public AudioClip highscoreSound; // dźwięk nowego rekordu
@@ -52,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
 
 	//Pozostałe obiekty
     Ustawienia settings; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
-	public Tips tips;
 
     // Use this for initialization
     void Start()
@@ -62,11 +57,9 @@ public class PlayerMovement : MonoBehaviour
 		newRecordAnim = GameObject.Find("NewRecordText").GetComponent<Animator> ();
         myRigidbody = GetComponent<Rigidbody2D>();
         crowd = GameObject.FindGameObjectWithTag("Tlum").GetComponent<Transform>();
-		gameCanvas.SetActive(true);
-        gameOverCanvas.SetActive(false);     //pasek GAme Over jest niewidoczny
-		upgradeCanvas.SetActive(false);
         scoreValue = 0f;                     //zerowanie wyniku
         settings.wlaczMuzyke(gameMusic);
+		highscoreText.text = "Rekord: " + PlayerPrefs.GetInt ("Highscore");
 		if (PlayerPrefs.GetInt ("DoubleJump") == 0) 
 		{
 			doubleJumpText.transform.parent.gameObject.SetActive (false);
@@ -116,8 +109,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 		if (!settings.movementPause)	//	Sprawdzanie, czy gra nie została spauzowana 
 		{
-			crowd.position = Vector2.Lerp(crowd.position, new Vector2 (transform.position.x - slip - 2, crowd.position.y), crowdSpeed * Time.deltaTime);
-
+			HandleMovement ();
 			if (PlayerPrefs.GetInt ("SuperPower") == 1)	//	Sprawdzanie, czy ulepszenie Super Mocy jest aktywne 
 			{
 				SuperPower ();
@@ -129,14 +121,13 @@ public class PlayerMovement : MonoBehaviour
 			}
 				
 			if (slip == 0) // Jeśli gracz potknął się 3 razy uruchamia się QTE
-			{  
-				scoreText.gameObject.SetActive (false);
-				qteObject.SetActive (true);
+			{
+				qteCanvas.SetActive (true);
 			} 
 			else 
 			{
 				scoreValue = Vector3.Distance (transform.parent.position, crowd.position); // Wynik jest to dystans jaki pokonał gracz od punktu startowego
-				scoreText.text = "Wynik: " + Mathf.Round (scoreValue) + " Rekord: " + PlayerPrefs.GetInt ("Highscore");	//	Wyświetlanie wyniku podczas gry
+				scoreText.text = "Wynik: " + Mathf.Round (scoreValue);
 				//	Poniżej informacja o pobiciu rekordu
 				if ((scoreValue > PlayerPrefs.GetInt ("Highscore")) && (isHighscore == false)) 
 				{
@@ -145,7 +136,6 @@ public class PlayerMovement : MonoBehaviour
 					settings.odegrajDzwiek (highscoreSound);
 					scoreText.color = Color.green;
 				}
-				HandleMovement ();
 			}
 		}
     }
@@ -198,15 +188,4 @@ public class PlayerMovement : MonoBehaviour
 			}
         }
     }
-
-	void OnTriggerEnter2D(Collider2D target)	// Sprawdzanie, czy przed graczem jest przeszkoda
-	{
-		if(PlayerPrefs.GetInt("Tips") == 1)
-		{
-			if(target.gameObject.tag == "Przeszkoda")
-			{
-				tips.tips (2);
-			}
-		}
-	}
 }
