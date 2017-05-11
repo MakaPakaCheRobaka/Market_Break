@@ -133,4 +133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   source: {fileID: 0}
-  paused: 0
+  movementPause: 0
+  spawnerPause: 0
+  QTEPause: 0

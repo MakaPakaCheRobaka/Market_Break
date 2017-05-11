@@ -6,6 +6,7 @@ public class spawnScript : MonoBehaviour {
 
 	public GameObject[] enemy;
 	public PlayerMovement player;
+	public QTE qte;
 	Ustawienia ust;
 	public float spawnTimeMin;
 	public float spawnTimeMax;
@@ -22,7 +23,7 @@ public class spawnScript : MonoBehaviour {
 
 	IEnumerator spawner()
 	{
-		while(!player.isGameOver)
+		while(!qte.isGameOver)
 		{
 			if (!ust.spawnerPause) 
 			{

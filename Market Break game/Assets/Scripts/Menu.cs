@@ -44,6 +44,9 @@ public class Menu : MonoBehaviour {
 			textMuzyka.text = "MUZYKA: OFF";
 		}
 
+		if (PlayerPrefs.GetInt ("Tips") == 1)
+			PlayerPrefs.SetInt ("Tips", 0);
+
 		//	Poniżej dodanie dwóch wskazówek do listy
 		tips.tips (0);
 		tips.tips (1);

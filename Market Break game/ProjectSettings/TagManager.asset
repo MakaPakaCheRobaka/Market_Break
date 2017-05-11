@@ -8,6 +8,7 @@ TagManager:
   - Przeszkoda
   - Ground
   - Ustawienia
+  - QTE
   layers:
   - Default
   - TransparentFX
