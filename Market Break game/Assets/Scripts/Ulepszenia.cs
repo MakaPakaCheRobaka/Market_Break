@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Ulepszenia : MonoBehaviour {
 
-	Text infoText;
+	public Text infoText;
 	public Text pointsText;
 	Text doubleJumpCostText;
 	Button doubleJumpButton;

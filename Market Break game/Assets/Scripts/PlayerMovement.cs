@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class PlayerMovement : MonoBehaviour
 
 	//Pozostałe obiekty
     Ustawienia settings; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
+	public Click click;
 
     // Use this for initialization
     void Start()
@@ -100,16 +102,15 @@ public class PlayerMovement : MonoBehaviour
 	}
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
 	{
-		if (myRigidbody.velocity.y < 0) //	Włączanie odpowiedniej animacji skoku na podstawie kierunku lotu
+		if (myRigidbody.velocity.y < 0)  //	Włączanie odpowiedniej animacji skoku na podstawie kierunku lotu
 		{
 			gAnim.SetBool ("JumpDown", true);
 			gAnim.SetBool ("JumpUp", false);
 		}
 		if (!settings.movementPause)	//	Sprawdzanie, czy gra nie została spauzowana 
 		{
-			HandleMovement ();
 			if (PlayerPrefs.GetInt ("SuperPower") == 1)	//	Sprawdzanie, czy ulepszenie Super Mocy jest aktywne 
 			{
 				SuperPower ();
@@ -137,22 +138,40 @@ public class PlayerMovement : MonoBehaviour
 					scoreText.color = Color.green;
 				}
 			}
+			HandleMovement ();
 		}
     }
 
-    private void HandleMovement()	// Funkcja odpowiedzialna za ruch w prawo i wykonywanie skoku
-    {
-		if (Input.GetKeyDown (KeyCode.Space) || Input.GetMouseButtonDown (0)) 
+	public void Jump()
+	{
+		if (jumps > 0) 
 		{
-			if (jumps > 0) 
-			{
+			Debug.Log ("Jump");
 			jumps--;
 			gAnim.SetBool ("JumpUp", true);
 			gAnim.SetBool ("JumpDown", false);
 			settings.odegrajDzwiek(jumpSound);
 			myRigidbody.velocity = new Vector2 (myRigidbody.velocity.x, jumpPower);
+		}
+	}
+
+    private void HandleMovement()	// Funkcja odpowiedzialna za ruch w prawo i wykonywanie skoku
+    {
+		/*
+		if (click.jumpClick) 
+		{
+			if (jumps > 0) 
+			{
+			Debug.Log ("Jump");
+			jumps--;
+			gAnim.SetBool ("JumpUp", true);
+			gAnim.SetBool ("JumpDown", false);
+			settings.odegrajDzwiek(jumpSound);
+			myRigidbody.velocity = new Vector2 (myRigidbody.velocity.x, jumpPower);
+			click.jumpClick = false;
 			}
 		} 
+		*/
 		myRigidbody.velocity = new Vector2 (moveSpeed, myRigidbody.velocity.y);
     	}
 
