@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 	public int slip = 3; // zmienna która przechowuje ile razy gracz wpadł na przeszkodę
 	int jumps = 0; // Ilość dostępnych skoków
 	Vector2 savedVelocity;
+    int collectMoney;
 
 	//Obiekty tłumu
 	Transform crowd;
@@ -28,6 +29,7 @@ public class PlayerMovement : MonoBehaviour
 
 	//Obiekty wyniku
     public Text scoreText;          //tekst z wynikiem
+    public Text MoneyText;
 	public Text highscoreText;
 	[HideInInspector]
 	public bool isHighscore = false;
@@ -175,6 +177,17 @@ public class PlayerMovement : MonoBehaviour
 		myRigidbody.velocity = new Vector2 (moveSpeed, myRigidbody.velocity.y);
     	}
 
+	void OnTriggerEnter2D(Collider2D target)
+	{
+		if (target.gameObject.tag == "Money")
+		{
+			Debug.Log("PlayerHitMoney");
+			target.gameObject.SetActive(false);
+			collectMoney += 1;
+			MoneyText.text = "Kasa: " + collectMoney;
+		}
+	}
+
 
     void OnCollisionEnter2D(Collision2D target)
     {
@@ -207,4 +220,6 @@ public class PlayerMovement : MonoBehaviour
 			}
         }
     }
+
+ 
 }

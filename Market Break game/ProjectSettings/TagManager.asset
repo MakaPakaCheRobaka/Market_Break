@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - Ustawienia
   - QTE
+  - Money
   layers:
   - Default
   - TransparentFX
