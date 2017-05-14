@@ -17,8 +17,9 @@ public class spawnScript : MonoBehaviour {
 
 	void addEnemy()
 	{
+		float spawnHeight = Random.Range (0f, 3f);
 		int random = Random.Range (0, enemy.Length);
-		Instantiate (enemy [random], new Vector2 (player.transform.position.x + 20, 0), Quaternion.identity);
+		Instantiate (enemy [random], new Vector2 (player.transform.position.x + 20, spawnHeight), Quaternion.identity);
 	}
 
 	IEnumerator spawner()

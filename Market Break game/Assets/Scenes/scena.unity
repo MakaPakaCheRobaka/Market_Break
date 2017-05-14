@@ -1530,7 +1530,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &662837582
 Transform:
   m_ObjectHideFlags: 0
@@ -2977,9 +2977,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '0
-
-'
+  m_Text: 'Kasa: 0'
 --- !u!222 &1211540228
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4571,10 +4569,11 @@ MonoBehaviour:
   - {fileID: 1761947723255264, guid: 1e93975de8adfcc418bf9b773f89b50b, type: 2}
   - {fileID: 1761947723255264, guid: 3fe370e2b9099aa4bb62b611484d25c7, type: 2}
   - {fileID: 1761947723255264, guid: c2965ec7634b3c246ab9c3117a4cd00c, type: 2}
+  - {fileID: 1749230127582558, guid: 1ae73deb7e5faa742b2b78c0712ec418, type: 2}
   player: {fileID: 0}
   qte: {fileID: 937893208}
   spawnTimeMin: 2
-  spawnTimeMax: 4
+  spawnTimeMax: 3
   spawnTimeMinLimit: 0.5
   spawnTimeMaxLimit: 1.5
 --- !u!1 &1818222458
