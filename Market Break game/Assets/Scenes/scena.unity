@@ -2251,8 +2251,8 @@ MonoBehaviour:
   pointsText: {fileID: 880836400}
   gameOverCanvas: {fileID: 1472088700}
   upgradeCanvas: {fileID: 456940123}
-  doubleJumpCost: 500
-  superPowerCost: 1000
+  doubleJumpCost: 20
+  superPowerCost: 40
 --- !u!1 &880836398
 GameObject:
   m_ObjectHideFlags: 0
@@ -4952,6 +4952,7 @@ MonoBehaviour:
   jumpPower: 23
   moveSpeed: 15
   slip: 3
+  collectMoney: 0
   gameOverCanvas: {fileID: 1472088700}
   gameCanvas: {fileID: 872180802}
   upgradeCanvas: {fileID: 456940123}

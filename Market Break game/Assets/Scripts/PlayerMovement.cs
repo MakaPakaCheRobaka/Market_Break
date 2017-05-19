@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 	public int slip = 3; // zmienna która przechowuje ile razy gracz wpadł na przeszkodę
 	int jumps = 0; // Ilość dostępnych skoków
 	Vector2 savedVelocity;
-    int collectMoney;
+    public int collectMoney;
 
 	//Obiekty tłumu
 	Transform crowd;
@@ -64,6 +64,10 @@ public class PlayerMovement : MonoBehaviour
         scoreValue = 0f;                     //zerowanie wyniku
         settings.wlaczMuzyke(gameMusic);
 		highscoreText.text = "Rekord: " + PlayerPrefs.GetInt ("Highscore");
+		if (!PlayerPrefs.HasKey ("Money")) 
+		{
+			PlayerPrefs.SetInt ("Money", 0);
+		}
 		if (PlayerPrefs.GetInt ("DoubleJump") == 0) 
 		{
 			doubleJumpText.transform.parent.gameObject.SetActive (false);
@@ -159,23 +163,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()	// Funkcja odpowiedzialna za ruch w prawo i wykonywanie skoku
     {
-		/*
-		if (click.jumpClick) 
-		{
-			if (jumps > 0) 
-			{
-			Debug.Log ("Jump");
-			jumps--;
-			gAnim.SetBool ("JumpUp", true);
-			gAnim.SetBool ("JumpDown", false);
-			settings.odegrajDzwiek(jumpSound);
-			myRigidbody.velocity = new Vector2 (myRigidbody.velocity.x, jumpPower);
-			click.jumpClick = false;
-			}
-		} 
-		*/
 		myRigidbody.velocity = new Vector2 (moveSpeed, myRigidbody.velocity.y);
-    	}
+    }
 
 	void OnTriggerEnter2D(Collider2D target)
 	{

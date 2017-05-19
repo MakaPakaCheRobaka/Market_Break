@@ -19,13 +19,13 @@ public class Ulepszenia : MonoBehaviour {
 
 	public void DoubleJumpBuy()
 	{
-		if (PlayerPrefs.GetInt ("Points") < doubleJumpCost) 
+		if (PlayerPrefs.GetInt ("Money") < doubleJumpCost) 
 		{
 			infoText.text = "Nie stać cię na zakup tego ulepszenia!";
 		} 
 		else 
 		{
-			PlayerPrefs.SetInt ("Points", PlayerPrefs.GetInt ("Points") - doubleJumpCost);
+			PlayerPrefs.SetInt ("Money", PlayerPrefs.GetInt ("Money") - doubleJumpCost);
 			PlayerPrefs.SetInt ("DoubleJump", 1);
 			infoText.text = "Zakupiono ulepszenie!";
 			DoubleJumpBought ();
@@ -41,13 +41,13 @@ public class Ulepszenia : MonoBehaviour {
 
 	public void SuperPowerBuy()
 	{
-		if (PlayerPrefs.GetInt ("Points") < superPowerCost) 
+		if (PlayerPrefs.GetInt ("Money") < superPowerCost) 
 		{
 			infoText.text = "Nie stać cię na zakup tego ulepszenia!";
 		} 
 		else 
 		{
-			PlayerPrefs.SetInt ("Points", PlayerPrefs.GetInt ("Points") - superPowerCost);
+			PlayerPrefs.SetInt ("Money", PlayerPrefs.GetInt ("Money") - superPowerCost);
 			PlayerPrefs.SetInt ("SuperPower", 1);
 			infoText.text = "Zakupiono ulepszenie!";
 			SuperPowerBought ();
@@ -69,7 +69,7 @@ public class Ulepszenia : MonoBehaviour {
 
 	void Update()
 	{
-		pointsText.text = "Dostępne punkty: " + PlayerPrefs.GetInt ("Points").ToString ();
+		pointsText.text = "Dostępna kasa: " + PlayerPrefs.GetInt ("Money").ToString ();
 	}
 
 	void Start()

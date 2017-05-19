@@ -68,6 +68,7 @@ public class QTE : MonoBehaviour
 		if (wasCaught) // Jeśli gracz przegrał QTE wyświetla się ekran Game Over z wynikiem i przyciskami menu i restartu
 		{  
 			int newPoints = PlayerPrefs.GetInt ("Points") + (int)player.scoreValue;	// Sumowanie wyniku do ogólnej liczby punktów
+			PlayerPrefs.SetInt ("Money", PlayerPrefs.GetInt("Money") + player.collectMoney);
 			PlayerPrefs.SetInt ("Points", newPoints);	// Ustawianie nowej liczby punktów
 			isGameOver = true;
 			settings.odegrajDzwiek (gameOverSound);

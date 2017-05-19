@@ -10,6 +10,8 @@ public class Menu : MonoBehaviour {
 	Text textMuzyka;
 	Ustawienia ust;
 	public AudioClip menuMusic;
+	int clicks;
+	public GameObject consoleMenu;
 
 	// Use this for initialization
 	void Start () 
@@ -18,6 +20,8 @@ public class Menu : MonoBehaviour {
 		textDzwiek = GameObject.Find ("SoundButton").GetComponentInChildren<Text> ();
 		textMuzyka = GameObject.Find ("MusicButton").GetComponentInChildren<Text> ();
 		ust.wlaczMuzyke (menuMusic);
+
+		clicks = 0;
 
 		if (!PlayerPrefs.HasKey ("Points")) // Ustawianie zmiennej odpowiedzialnej za ogólne punkty
 		{
@@ -39,6 +43,30 @@ public class Menu : MonoBehaviour {
 		{
 			textMuzyka.text = "MUZYKA: OFF";
 		}
+	}
+
+	public void pressConsoleStart()
+	{
+		clicks++;
+		if (clicks == 5) 
+		{
+			clicks = 0;
+			if (consoleMenu.activeSelf == false)
+				consoleMenu.SetActive (true);
+			else
+				consoleMenu.SetActive (false);
+		}
+	}
+
+	public void pressStatsReset()
+	{
+		PlayerPrefs.SetInt ("Points", 0);
+		PlayerPrefs.SetInt ("FirstTime", 1);
+		PlayerPrefs.SetInt ("Money", 0);
+		PlayerPrefs.SetInt ("Points", 0);
+		PlayerPrefs.SetInt ("Highscore", 0);
+		PlayerPrefs.SetInt ("DoubleJump", 0);
+		PlayerPrefs.SetInt ("SuperPower", 0);
 	}
 
 	public void pressStart() // Funkcja odpowiedzialna za kliknięcie przycisku start
