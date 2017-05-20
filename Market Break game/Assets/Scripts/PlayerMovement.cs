@@ -51,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
 
 	//Pozostałe obiekty
     Ustawienia settings; // ustawienia dźwięku, muzyki i odgrywanie dźwięków
-	public Click click;
 
     // Use this for initialization
     void Start()

@@ -36,6 +36,6 @@ public class CameraFollow : MonoBehaviour {
 	void LateUpdate () {
         xMax = target.GetComponent<Transform>().position.x;
         xMin = target.GetComponent<Transform>().position.x;
-        transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin+2, xMax), Mathf.Clamp(target.position.y, yMin, yMax), transform.position.z);
+        transform.position = new Vector3(Mathf.Clamp(target.position.x, xMin + 4, xMax), Mathf.Clamp(target.position.y, yMin, yMax), transform.position.z);
 	}
 }
