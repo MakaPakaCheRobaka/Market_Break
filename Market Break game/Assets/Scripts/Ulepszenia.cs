@@ -5,61 +5,22 @@ using UnityEngine.UI;
 
 public class Ulepszenia : MonoBehaviour {
 
+	[System.Serializable]
+	public struct upgrades
+	{
+		public string name;
+		public Button button;
+		public Text costText;
+		public int cost;
+	}
+
+	[SerializeField]
+	public upgrades[] upgradesArray;
+
 	public Text infoText;
 	public Text pointsText;
-	Text doubleJumpCostText;
-	Button doubleJumpButton;
-	Text superPowerCostText;
-	Button superPowerButton;
 	public GameObject gameOverCanvas;
 	public GameObject upgradeCanvas;
-
-	public int doubleJumpCost;
-	public int superPowerCost;
-
-	public void DoubleJumpBuy()
-	{
-		if (PlayerPrefs.GetInt ("Money") < doubleJumpCost) 
-		{
-			infoText.text = "Nie stać cię na zakup tego ulepszenia!";
-		} 
-		else 
-		{
-			PlayerPrefs.SetInt ("Money", PlayerPrefs.GetInt ("Money") - doubleJumpCost);
-			PlayerPrefs.SetInt ("DoubleJump", 1);
-			infoText.text = "Zakupiono ulepszenie!";
-			DoubleJumpBought ();
-		}
-
-	}
-
-	void DoubleJumpBought()
-	{
-		doubleJumpCostText.text = "Kupione";
-		doubleJumpButton.interactable = false;
-	}
-
-	public void SuperPowerBuy()
-	{
-		if (PlayerPrefs.GetInt ("Money") < superPowerCost) 
-		{
-			infoText.text = "Nie stać cię na zakup tego ulepszenia!";
-		} 
-		else 
-		{
-			PlayerPrefs.SetInt ("Money", PlayerPrefs.GetInt ("Money") - superPowerCost);
-			PlayerPrefs.SetInt ("SuperPower", 1);
-			infoText.text = "Zakupiono ulepszenie!";
-			SuperPowerBought ();
-		}
-
-	}
-
-	void SuperPowerBought()
-	{
-		superPowerCostText.text = "Kupione";
-		superPowerButton.interactable = false;
-	}
 
 	public void backPress()
 	{
@@ -72,39 +33,45 @@ public class Ulepszenia : MonoBehaviour {
 		pointsText.text = "Dostępna kasa: " + PlayerPrefs.GetInt ("Money").ToString ();
 	}
 
-	void Start()
+	void upgradeBuy (int i)
 	{
-		if (!PlayerPrefs.HasKey ("DoubleJump")) 
+		if (PlayerPrefs.GetInt ("Money") < upgradesArray[i].cost) 
 		{
-			PlayerPrefs.SetInt ("DoubleJump", 0);
-		}
-
-		if (!PlayerPrefs.HasKey ("SuperPower")) 
-		{
-			PlayerPrefs.SetInt ("SuperPower", 0);
-		}
-
-		doubleJumpCostText = GameObject.Find ("DoubleJumpCostText").GetComponent<Text> ();
-		doubleJumpButton = GameObject.Find ("DoubleJumpButton").GetComponent<Button> ();
-		superPowerCostText = GameObject.Find ("SuperPowerCostText").GetComponent<Text> ();
-		superPowerButton = GameObject.Find ("SuperPowerButton").GetComponent<Button> ();
-
-		if (PlayerPrefs.GetInt ("DoubleJump") == 1) 
-		{
-			DoubleJumpBought ();
+			infoText.text = "Nie stać cię na zakup tego ulepszenia!";
 		} 
 		else 
 		{
-			doubleJumpCostText.text = "Koszt: " + doubleJumpCost;
+			PlayerPrefs.SetInt ("Money", PlayerPrefs.GetInt ("Money") - upgradesArray[i].cost);
+			PlayerPrefs.SetInt (upgradesArray[i].name, 1);
+			infoText.text = "Zakupiono ulepszenie!";
+			upgradeBought (i);
 		}
+	}
 
-		if (PlayerPrefs.GetInt ("SuperPower") == 1) 
+	void upgradeBought (int i)
+	{
+		upgradesArray[i].costText.text = "Kupione";
+		upgradesArray[i].button.interactable = false;
+	}
+
+	void Start()
+	{
+		for (int i = 0; i < upgradesArray.Length; i++) 
 		{
-			SuperPowerBought ();
-		}
-		else 
-		{
-			superPowerCostText.text = "Koszt: " + superPowerCost;
+			upgradesArray [i].costText = upgradesArray [i].button.GetComponentInChildren<Text> ();
+			if(!PlayerPrefs.HasKey(upgradesArray[i].name))
+			{
+				PlayerPrefs.SetInt (upgradesArray [i].name, 1);
+			}
+
+			if (PlayerPrefs.GetInt (upgradesArray [i].name) == 1) 
+			{
+				upgradeBought (i);
+			} 
+			else 
+			{
+				upgradesArray [i].costText.text = "Koszt: " + upgradesArray [i].cost;
+			}
 		}
 	}
 }

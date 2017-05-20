@@ -65,8 +65,8 @@ public class Menu : MonoBehaviour {
 		PlayerPrefs.SetInt ("Money", 0);
 		PlayerPrefs.SetInt ("Points", 0);
 		PlayerPrefs.SetInt ("Highscore", 0);
-		PlayerPrefs.SetInt ("DoubleJump", 0);
-		PlayerPrefs.SetInt ("SuperPower", 0);
+		PlayerPrefs.SetInt ("Double Jump", 0);
+		PlayerPrefs.SetInt ("Super Power", 0);
 	}
 
 	public void pressStart() // Funkcja odpowiedzialna za kliknięcie przycisku start
