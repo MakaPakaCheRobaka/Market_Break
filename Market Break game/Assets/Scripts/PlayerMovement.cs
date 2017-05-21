@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
 			if (PlayerPrefs.GetInt (upgrades.upgradesArray [i].name) == 0) 
 			{
 				upgradeEnabled [i] = false;
-				upgrades.upgradesArray [i].upgradeImage.gameObject.SetActive (false);
+				//upgrades.upgradesArray [i].upgradeImage.gameObject.SetActive (false);
 			} 
 			else 
 			{
@@ -134,11 +134,13 @@ public class PlayerMovement : MonoBehaviour
 				
 			if (slip == 0) // Jeśli gracz potknął się 3 razy uruchamia się QTE
 			{
-				qteCanvas.SetActive (true);
+                gAnim.SetBool("Caught", true);
+                qteCanvas.SetActive (true);
 			} 
 			else 
 			{
-				scoreValue = Vector3.Distance (transform.parent.position, crowd.position); // Wynik jest to dystans jaki pokonał gracz od punktu startowego
+                gAnim.SetBool("Caught", false);
+                scoreValue = Vector3.Distance (transform.parent.position, crowd.position); // Wynik jest to dystans jaki pokonał gracz od punktu startowego
 				scoreText.text = "Wynik: " + Mathf.Round (scoreValue);
 				//	Poniżej informacja o pobiciu rekordu
 				if ((scoreValue > PlayerPrefs.GetInt ("Highscore")) && (isHighscore == false)) 
