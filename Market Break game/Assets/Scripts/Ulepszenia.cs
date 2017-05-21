@@ -10,7 +10,9 @@ public class Ulepszenia : MonoBehaviour {
 	{
 		public string name;
 		public Button button;
+		[HideInInspector]
 		public Text costText;
+		public Image upgradeImage;
 		public int cost;
 	}
 
@@ -33,7 +35,7 @@ public class Ulepszenia : MonoBehaviour {
 		pointsText.text = "Dostępna kasa: " + PlayerPrefs.GetInt ("Money").ToString ();
 	}
 
-	void upgradeBuy (int i)
+	public void upgradeBuy (int i)
 	{
 		if (PlayerPrefs.GetInt ("Money") < upgradesArray[i].cost) 
 		{
@@ -61,7 +63,7 @@ public class Ulepszenia : MonoBehaviour {
 			upgradesArray [i].costText = upgradesArray [i].button.GetComponentInChildren<Text> ();
 			if(!PlayerPrefs.HasKey(upgradesArray[i].name))
 			{
-				PlayerPrefs.SetInt (upgradesArray [i].name, 1);
+				PlayerPrefs.SetInt (upgradesArray [i].name, 0);
 			}
 
 			if (PlayerPrefs.GetInt (upgradesArray [i].name) == 1) 

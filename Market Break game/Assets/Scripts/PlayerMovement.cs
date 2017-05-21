@@ -44,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
 	public AudioClip gameOverSound; // dźwięk przegranej gry
 
 	//Obiekty ulepszeń
+	public Ulepszenia upgrades;
+	public bool[] upgradeEnabled;
 	public Image superPowerText;
 	public Image doubleJumpText;
 	int superCharge = 0; // Poziom naładowania super mocy
@@ -67,13 +69,17 @@ public class PlayerMovement : MonoBehaviour
 		{
 			PlayerPrefs.SetInt ("Money", 0);
 		}
-		if (PlayerPrefs.GetInt ("DoubleJump") == 0) 
+		for (int i = 0; i < upgrades.upgradesArray.Length; i++) 
 		{
-			doubleJumpText.transform.parent.gameObject.SetActive (false);
-		}
-		if (PlayerPrefs.GetInt ("SuperPower") == 0) 
-		{
-			superPowerText.transform.parent.gameObject.SetActive (false);
+			if (PlayerPrefs.GetInt (upgrades.upgradesArray [i].name) == 0) 
+			{
+				upgradeEnabled [i] = false;
+				upgrades.upgradesArray [i].upgradeImage.gameObject.SetActive (false);
+			} 
+			else 
+			{
+				upgradeEnabled [i] = true;
+			}
 		}
     }
 
@@ -97,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
 		if ((superCharge < 1000) && (!superPowerIsActive)) 
 		{
 			superCharge++;
-			superPowerText.fillAmount = (float)superCharge / 1000;
+			upgrades.upgradesArray[1].upgradeImage.fillAmount = (float)superCharge / 1000;
 		} 
 		else if(superCharge == 1000)
 		{
@@ -116,12 +122,12 @@ public class PlayerMovement : MonoBehaviour
 		}
 		if (!settings.movementPause)	//	Sprawdzanie, czy gra nie została spauzowana 
 		{
-			if (PlayerPrefs.GetInt ("SuperPower") == 1)	//	Sprawdzanie, czy ulepszenie Super Mocy jest aktywne 
+			if (upgradeEnabled[1])	//	Sprawdzanie, czy ulepszenie Super Mocy jest aktywne 
 			{
 				SuperPower ();
 			}
 				
-			if (PlayerPrefs.GetInt ("DoubleJump") == 1) //	Poniżej wypełnianie ikony podwójnego skoku na podstawie ilości dostępnych skoków
+			if (upgradeEnabled[0]) //	Poniżej wypełnianie ikony podwójnego skoku na podstawie ilości dostępnych skoków
 			{
 				doubleJumpText.fillAmount = (float)jumps / 2;
 			}
@@ -182,11 +188,11 @@ public class PlayerMovement : MonoBehaviour
 		if (target.gameObject.tag == "Ground") // Odnawianie ilości skoków przy zetknięciu z ziemią i włączenie animacji biegu
 		{
 			gAnim.SetBool ("JumpDown", false);
-			if ((PlayerPrefs.GetInt ("DoubleJump") == 1) && (jumps < 2)) 
+			if ((upgradeEnabled[0]) && (jumps < 2)) 
 			{
 				jumps = 2;
 			}
-			if ((PlayerPrefs.GetInt ("DoubleJump") == 0) && (jumps < 1)) 
+			if ((!upgradeEnabled[0]) && (jumps < 1))
 			{
 				jumps = 1;
 			}

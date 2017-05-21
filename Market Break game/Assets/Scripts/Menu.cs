@@ -60,13 +60,7 @@ public class Menu : MonoBehaviour {
 
 	public void pressStatsReset()
 	{
-		PlayerPrefs.SetInt ("Points", 0);
-		PlayerPrefs.SetInt ("FirstTime", 1);
-		PlayerPrefs.SetInt ("Money", 0);
-		PlayerPrefs.SetInt ("Points", 0);
-		PlayerPrefs.SetInt ("Highscore", 0);
-		PlayerPrefs.SetInt ("Double Jump", 0);
-		PlayerPrefs.SetInt ("Super Power", 0);
+		PlayerPrefs.DeleteAll ();
 	}
 
 	public void pressStart() // Funkcja odpowiedzialna za kliknięcie przycisku start
