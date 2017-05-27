@@ -17,6 +17,8 @@ public class CameraFollow : MonoBehaviour {
     [SerializeField]
     private float xMax;
 
+	public float cameraSpeed;
+
 
     private Transform target;
 

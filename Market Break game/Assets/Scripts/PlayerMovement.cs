@@ -74,7 +74,10 @@ public class PlayerMovement : MonoBehaviour
 			if (PlayerPrefs.GetInt (upgrades.upgradesArray [i].name) == 0) 
 			{
 				upgradeEnabled [i] = false;
-				//upgrades.upgradesArray [i].upgradeImage.gameObject.SetActive (false);
+				if(upgrades.upgradesArray [i].upgradeImage != null)
+				{
+					upgrades.upgradesArray [i].upgradeImage.gameObject.SetActive (false);
+				}
 			} 
 			else 
 			{

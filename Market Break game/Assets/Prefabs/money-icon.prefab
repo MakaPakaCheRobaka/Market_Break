@@ -20,9 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4129876432759562}
   - component: {fileID: 212382464450345348}
-  - component: {fileID: 114822026839836446}
   - component: {fileID: 61557381332700848}
   - component: {fileID: 95638808680781600}
+  - component: {fileID: 114380509395677620}
   m_Layer: 0
   m_Name: money-icon
   m_TagString: Money
@@ -74,7 +74,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114822026839836446
+--- !u!114 &114380509395677620
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -82,10 +82,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1749230127582558}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4426f774214bd574f88d54e4d9971802, type: 3}
+  m_Script: {fileID: 11500000, guid: 960207b8e6a3e1a4e877520a10261ca0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 5
+  destroyTime: 5
 --- !u!212 &212382464450345348
 SpriteRenderer:
   m_ObjectHideFlags: 1

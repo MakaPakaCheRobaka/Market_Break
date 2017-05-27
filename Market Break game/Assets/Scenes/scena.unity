@@ -2259,11 +2259,6 @@ MonoBehaviour:
     costText: {fileID: 0}
     upgradeImage: {fileID: 1634222409}
     cost: 40
-  - name: Granny In Cart
-    button: {fileID: 1396198976}
-    costText: {fileID: 0}
-    upgradeImage: {fileID: 0}
-    cost: 60
   infoText: {fileID: 896052717}
   pointsText: {fileID: 880836400}
   gameOverCanvas: {fileID: 1472088700}
@@ -3745,7 +3740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1396198976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6597,6 +6592,7 @@ MonoBehaviour:
   yMin: 0
   xMin: 0
   xMax: 0
+  cameraSpeed: 2
 --- !u!1 &2143999687
 GameObject:
   m_ObjectHideFlags: 0
