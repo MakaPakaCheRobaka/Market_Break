@@ -21,59 +21,91 @@ public class Ulepszenia : MonoBehaviour {
 
 	public Text infoText;
 	public Text pointsText;
-	public GameObject gameOverCanvas;
-	public GameObject upgradeCanvas;
+	public GameObject gameOverMenu;
+	public GameObject upgradeMenu;
+	int actualMoney;
 
-	public void backPress()
+	public void BackPress()
 	{
-		gameOverCanvas.SetActive (true);
-		upgradeCanvas.SetActive (false);
+		gameOverMenu.SetActive (true);
+		upgradeMenu.SetActive (false);
 	}
 
-	void Update()
+	int MoneyPref()
 	{
-		pointsText.text = "Dostępna kasa: " + PlayerPrefs.GetInt ("Money").ToString ();
+		return PlayerPrefs.GetInt ("Money");
 	}
 
-	public void upgradeBuy (int i)
+	IEnumerator UpdateMoney()
 	{
-		if (PlayerPrefs.GetInt ("Money") < upgradesArray[i].cost) 
+		do 
+		{
+			if (actualMoney < MoneyPref ()) {
+				actualMoney++;
+			} else
+				actualMoney--;
+			pointsText.text = "Dostępna kasa: " + actualMoney.ToString ();
+			yield return new WaitForSeconds (0.01f);
+		} 
+		while (actualMoney != MoneyPref ());
+	}
+
+	void ShowMoney()
+	{
+		StartCoroutine (UpdateMoney ());
+	}
+
+	public void UpgradeBuy (int i)
+	{
+		if (MoneyPref() < upgradesArray[i].cost) 
 		{
 			infoText.text = "Nie stać cię na zakup tego ulepszenia!";
 		} 
 		else 
 		{
-			PlayerPrefs.SetInt ("Money", PlayerPrefs.GetInt ("Money") - upgradesArray[i].cost);
+			PlayerPrefs.SetInt ("Money", MoneyPref() - upgradesArray[i].cost);
 			PlayerPrefs.SetInt (upgradesArray[i].name, 1);
 			infoText.text = "Zakupiono ulepszenie!";
-			upgradeBought (i);
+			ShowMoney ();
+			UpgradeBought (i);
 		}
 	}
 
-	void upgradeBought (int i)
+	void UpgradeBought (int i)
 	{
 		upgradesArray[i].costText.text = "Kupione";
 		upgradesArray[i].button.interactable = false;
 	}
 
+	void CheckIfBought (int i)
+	{
+		if (PlayerPrefs.GetInt (upgradesArray [i].name) == 1) 
+		{
+			UpgradeBought (i);
+		} 
+		else 
+		{
+			upgradesArray [i].costText.text = "Koszt: " + upgradesArray [i].cost;
+		}
+	}
+
+	void CheckIfKeyExist(string name)
+	{
+		if(!PlayerPrefs.HasKey(name))
+		{
+			PlayerPrefs.SetInt (name, 0);
+		}
+	}
+
 	void Start()
 	{
+		actualMoney = MoneyPref ();
+		ShowMoney ();
 		for (int i = 0; i < upgradesArray.Length; i++) 
 		{
 			upgradesArray [i].costText = upgradesArray [i].button.GetComponentInChildren<Text> ();
-			if(!PlayerPrefs.HasKey(upgradesArray[i].name))
-			{
-				PlayerPrefs.SetInt (upgradesArray [i].name, 0);
-			}
-
-			if (PlayerPrefs.GetInt (upgradesArray [i].name) == 1) 
-			{
-				upgradeBought (i);
-			} 
-			else 
-			{
-				upgradesArray [i].costText.text = "Koszt: " + upgradesArray [i].cost;
-			}
+			CheckIfKeyExist (upgradesArray[i].name);
+			CheckIfBought (i);
 		}
 	}
 }
