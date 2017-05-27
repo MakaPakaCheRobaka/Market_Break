@@ -12,6 +12,7 @@ public class Menu : MonoBehaviour {
 	public AudioClip menuMusic;
 	int clicks;
 	public GameObject consoleMenu;
+	public Loading loadScene;
 
 	// Use this for initialization
 	void Start () 
@@ -65,7 +66,7 @@ public class Menu : MonoBehaviour {
 
 	public void pressStart() // Funkcja odpowiedzialna za kliknięcie przycisku start
 	{
-		SceneManager.LoadScene ("scena");
+		StartCoroutine (loadScene.LoadScene("scena", true));
 	}
 
 	public void pressDzwiek() // Funkcja odpowiedzialna za kliknięcie przycisku dźwięku

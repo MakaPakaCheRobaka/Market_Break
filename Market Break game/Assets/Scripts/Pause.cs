@@ -8,6 +8,7 @@ public class Pause : MonoBehaviour {
 
 	Ustawienia ust;
 	public GameObject gameCanvas;
+	public Loading loadScene;
 
 	// Use this for initialization
 	void Start () {
@@ -38,12 +39,12 @@ public class Pause : MonoBehaviour {
 	public void pressMenu()   // po kliknięciu przycisku menu gra ładuje scene z Manu
 	{
 		resetSound ();
-		SceneManager.LoadScene("Menu");
+		StartCoroutine (loadScene.LoadScene("Menu", true));
 	}
 
 	public void pressRestart()  // po kliknięciu przycisku restart gra ładuje scene jeszcze raz
 	{
 		resetSound ();
-		SceneManager.LoadScene("scena");
+		StartCoroutine (loadScene.LoadScene("scena", false));
 	}
 }
